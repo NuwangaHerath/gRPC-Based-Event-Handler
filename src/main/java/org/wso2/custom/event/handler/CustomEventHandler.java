@@ -66,13 +66,14 @@ public class CustomEventHandler extends AbstractEventHandler {
         Map<String, Object> eventProperties = event.getEventProperties();
         String userName = (String) eventProperties.get(IdentityEventConstants.EventProperty.USER_NAME);
         String tenantDomain = (String) eventProperties.get(IdentityEventConstants.EventProperty.TENANT_DOMAIN);
-        String userStoreDomain = (String) eventProperties.get(IdentityEventConstants.EventProperty.USER_STORE_DOMAIN);
+        //String userStoreDomain = (String) eventProperties.get(IdentityEventConstants.EventProperty.USER_STORE_DOMAIN);
         String eventName = event.getEventName();
 
         Map<String, String> grpcMap = new HashMap<>();
-        grpcMap.put("user_name", userName);
-        grpcMap.put("tenant_domain", tenantDomain);
-        grpcMap.put("user_store_domain", userStoreDomain);
+        grpcMap.put("user-name", userName);
+        grpcMap.put("tenant-domain", tenantDomain);
+        //grpcMap.put("user-store-domain", userStoreDomain);
+        grpcMap.put("user-store-domain", "PRIMARY");
 
         //define grpc event message
         Service.Event event1 = Service.Event.newBuilder().setEvent(eventName).putAllEventProperties(grpcMap).build();
