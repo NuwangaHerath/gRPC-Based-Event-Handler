@@ -18,6 +18,10 @@
 
 package org.wso2.custom.event.handler;
 
+import io.grpc.ManagedChannel;
+import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
+import org.wso2.custom.event.handler.grpc.Service;
+import org.wso2.custom.event.handler.grpc.serviceGrpc;
 import org.wso2.custom.event.handler.internal.CustomEventHandlerComponent;
 import org.apache.commons.logging.LogFactory;
 import org.wso2.carbon.identity.application.common.model.User;
@@ -37,16 +41,25 @@ public class CustomEventHandler extends AbstractEventHandler {
 
     private static Log log = LogFactory.getLog(org.wso2.custom.event.handler.CustomEventHandler.class);
 
+    //Creating a channel
+    ManagedChannel channel = NettyChannelBuilder.forAddress("localhost", 8010).usePlaintext().build();
+    //Creating the client stub
+    serviceGrpc.serviceBlockingStub clientStub = serviceGrpc.newBlockingStub(channel);
+
+
     @Override
     public String getName() {
 
-        return "customEvent";
+
+        Service.HandlerName handlerName = clientStub.getName(Service.Empty.newBuilder().build());
+        return handlerName.getName();
     }
 
     @Override
     public int getPriority(MessageContext messageContext) {
 
-        return 58;
+        Service.Priority priority = clientStub.getPriority(Service.MessageContext.newBuilder().build());
+        return priority.getPriority();
     }
 
     @Override
