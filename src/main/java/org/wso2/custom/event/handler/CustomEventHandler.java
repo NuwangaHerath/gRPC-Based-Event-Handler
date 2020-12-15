@@ -81,13 +81,6 @@ public class CustomEventHandler extends AbstractEventHandler {
         Service.Log remoteLog = clientStub.handleEvent(event1);
         log.info(remoteLog.getLog());
 
-        if (IdentityEventConstants.Event.PRE_ADD_USER.equals(eventName)) {
-            log.info("PRE_ADD_USER from Custom Event Handler");
-        }
-        if (IdentityEventConstants.Event.POST_ADD_USER.equals(eventName)) {
-            log.info("POST_ADD_EVENT from Custom Event Handler");
-        }
-
     }
 
     private void triggerSampleEvent(User user, String eventName)
