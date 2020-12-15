@@ -46,10 +46,8 @@ public class CustomEventHandler extends AbstractEventHandler {
     //Creating the client stub
     serviceGrpc.serviceBlockingStub clientStub = serviceGrpc.newBlockingStub(channel);
 
-
     @Override
     public String getName() {
-
 
         Service.HandlerName handlerName = clientStub.getName(Service.Empty.newBuilder().build());
         return handlerName.getName();
@@ -70,6 +68,17 @@ public class CustomEventHandler extends AbstractEventHandler {
         String tenantDomain = (String) eventProperties.get(IdentityEventConstants.EventProperty.TENANT_DOMAIN);
         String userStoreDomain = (String) eventProperties.get(IdentityEventConstants.EventProperty.USER_STORE_DOMAIN);
         String eventName = event.getEventName();
+
+        Map<String, String> grpcMap = new HashMap<>();
+        grpcMap.put("user_name", userName);
+        grpcMap.put("tenant_domain", tenantDomain);
+        grpcMap.put("user_store_domain", userStoreDomain);
+
+        //define grpc event message
+        Service.Event event1 = Service.Event.newBuilder().setEvent(eventName).putAllEventProperties(grpcMap).build();
+        //obtaining log from remote server
+        Service.Log remoteLog = clientStub.handleEvent(event1);
+        log.info(remoteLog.getLog());
 
         if (IdentityEventConstants.Event.PRE_ADD_USER.equals(eventName)) {
             log.info("PRE_ADD_USER from Custom Event Handler");
