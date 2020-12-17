@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="org.wso2.custom.event.handler" />
         <module name="custom-event-handler" />
+        <module name="org.wso2.grpc.event.handler" />
       </profile>
     </annotationProcessing>
   </component>

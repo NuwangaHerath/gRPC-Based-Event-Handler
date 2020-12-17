@@ -1,5 +1,5 @@
 syntax = "proto3";
-option java_package = "org.wso2.custom.event.handler.grpc";
+option java_package = "org.wso2.grpc.event.handler.grpc";
 
 service service{
   rpc getName(Empty) returns (HandlerName){};
