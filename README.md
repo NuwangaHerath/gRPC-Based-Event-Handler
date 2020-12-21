@@ -1,1 +1,2 @@
-# gRPC-Custom-Event-Handler
+# gRPC Custom Event Handler
+## Getting Started
