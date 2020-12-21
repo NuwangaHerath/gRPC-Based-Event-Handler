@@ -18,31 +18,20 @@
 
 package org.wso2.grpc.event.handler.internal;
 
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Deactivate;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
-import org.osgi.service.component.annotations.ReferencePolicy;
-import org.wso2.carbon.identity.event.services.IdentityEventService;
-import org.wso2.grpc.event.handler.GrpcEventHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Deactivate;
 import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
+import org.wso2.grpc.event.handler.GrpcEventHandler;
 
 /**
- * @scr.component name="org.wso2.custom.event.handler.internal.CustomEventHandlerComponent" immediate="true"
+ * @scr.component name="org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent" immediate="true"
  */
 public class GrpcEventHandlerComponent {
 
     private static Log log = LogFactory.getLog(GrpcEventHandlerComponent.class);
-
-    private IdentityEventService identityEventService;
-
-    public IdentityEventService getIdentityEventService() {
-
-        return identityEventService;
-    }
 
     @Activate
     protected void activate(ComponentContext context) {
@@ -60,22 +49,6 @@ public class GrpcEventHandlerComponent {
         if (log.isDebugEnabled()) {
             log.debug("gRPC event handler is deactivated ");
         }
-    }
-
-    protected void unsetIdentityEventService(IdentityEventService identityEventService) {
-
-        identityEventService = null;
-    }
-
-    @Reference(
-            name = "IdentityEventService",
-            service = org.wso2.carbon.identity.event.services.IdentityEventService.class,
-            cardinality = ReferenceCardinality.MANDATORY,
-            policy = ReferencePolicy.DYNAMIC,
-            unbind = "unsetIdentityEventService")
-    protected void setIdentityEventService(IdentityEventService identityEventService) {
-
-        this.identityEventService = identityEventService;
     }
 
 }

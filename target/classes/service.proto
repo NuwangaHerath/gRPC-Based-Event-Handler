@@ -1,5 +1,5 @@
 syntax = "proto3";
-option java_package = "org.wso2.custom.event.handler.grpc";
+option java_package = "org.wso2.grpc.event.handler.grpc";
 
 service service{
   rpc getName(Empty) returns (HandlerName){};
@@ -10,20 +10,19 @@ service service{
 message HandlerName{
   string  name = 1;
 }
-
 message Priority{
   int32 priority = 1;
 }
+message MessageContext{
 
-message MessageContext{}
-
+}
 message Event{
   string  event = 1;
   map<string,string> eventProperties = 3;
 }
-
 message Log{
   string log = 1;
 }
+message Empty{
 
-message Empty{}
+}

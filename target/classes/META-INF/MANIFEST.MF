@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1608180534202
+Bnd-LastModified: 1608294727109
 Build-Jdk: 1.8.0_275
 Built-By: nuwanga
 Bundle-ClassPath: .,protobuf-java-3.6.1.jar,grpc-netty-shaded-1.15.1.jar
@@ -31,8 +31,8 @@ Export-Package: org.wso2.grpc.event.handler;uses:="org.wso2.carbon.ident
  pc;version="1.0.0.SNAPSHOT"
 Import-Package: org.apache.commons.logging;version="[1.2,2.0)",org.wso2.
  carbon.identity.event;version="[5.12.0,6.0.0)",org.wso2.carbon.identity
- .event.event;version="[5.12.0,6.0.0)",org.wso2.carbon.identity.event.ha
- ndler;version="[5.12.0,6.0.0)",org.wso2.carbon.identity.event.services;
- version="[5.12.0,6.0.0)",org.osgi.framework,org.osgi.service.component
+ .event.bean;version="[5.12.0,6.0.0)",org.wso2.carbon.identity.event.eve
+ nt;version="[5.12.0,6.0.0)",org.wso2.carbon.identity.event.handler;vers
+ ion="[5.12.0,6.0.0)",org.osgi.framework,org.osgi.service.component
 Service-Component: OSGI-INF/serviceComponents.xml
 Tool: Bnd-2.1.0.20130426-122213

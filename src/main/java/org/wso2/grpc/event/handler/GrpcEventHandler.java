@@ -20,35 +20,55 @@ package org.wso2.grpc.event.handler;
 
 import io.grpc.ManagedChannel;
 import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
-import org.wso2.grpc.event.handler.grpc.Service;
-import org.wso2.grpc.event.handler.grpc.serviceGrpc;
-import org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent;
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wso2.carbon.identity.application.common.model.User;
 import org.wso2.carbon.identity.core.bean.context.MessageContext;
+import org.wso2.carbon.identity.event.IdentityEventConfigBuilder;
 import org.wso2.carbon.identity.event.IdentityEventConstants;
 import org.wso2.carbon.identity.event.IdentityEventException;
+import org.wso2.carbon.identity.event.bean.ModuleConfiguration;
 import org.wso2.carbon.identity.event.event.Event;
 import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
-import org.apache.commons.logging.Log;
+import org.wso2.grpc.event.handler.grpc.Service;
+import org.wso2.grpc.event.handler.grpc.serviceGrpc;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * GrpcEventHandler overrides methods of AbstractEventHandler using gRPC stubs.
+ */
 public class GrpcEventHandler extends AbstractEventHandler {
 
     private static Log log = LogFactory.getLog(GrpcEventHandler.class);
-    private String host = "localhost";
-    private int port = 8010;
+    private ModuleConfiguration grpcEventHandlerConfiguration;
 
-    //Creating a channel
-    ManagedChannel channel = NettyChannelBuilder.forAddress(host, port).usePlaintext().build();
-    //Creating the client stub
+    {
+        try {
+            grpcEventHandlerConfiguration = IdentityEventConfigBuilder.getInstance().getModuleConfigurations
+                    ("grpcBasedEventHandler");
+        } catch (IdentityEventException e) {
+            log.info("IdentityEventException: ", e);
+        }
+    }
+
+    // Obtain grpcServerHost and grpcServerPort from identity-event properties.
+    private String grpcServerHost = grpcEventHandlerConfiguration.getModuleProperties()
+            .getProperty("grpcBasedEventHandler.host");
+    private String grpcServerPort = grpcEventHandlerConfiguration.getModuleProperties()
+            .getProperty("grpcBasedEventHandler.port");
+
+    // Create the channel for gRPC server.
+    ManagedChannel channel = NettyChannelBuilder.forAddress(grpcServerHost, Integer.parseInt(grpcServerPort))
+            .usePlaintext().build();
+
+    // Create the gRPC client stub.
     serviceGrpc.serviceBlockingStub clientStub = serviceGrpc.newBlockingStub(channel);
 
     @Override
     public String getName() {
 
+        // Obtain handlerName from remote gRPC server
         Service.HandlerName handlerName = clientStub.getName(Service.Empty.newBuilder().build());
         return handlerName.getName();
     }
@@ -56,6 +76,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
     @Override
     public int getPriority(MessageContext messageContext) {
 
+        // Obtain priority from remote gRPC server
         Service.Priority priority = clientStub.getPriority(Service.MessageContext.newBuilder().build());
         return priority.getPriority();
     }
@@ -66,39 +87,19 @@ public class GrpcEventHandler extends AbstractEventHandler {
         Map<String, Object> eventProperties = event.getEventProperties();
         String userName = (String) eventProperties.get(IdentityEventConstants.EventProperty.USER_NAME);
         String tenantDomain = (String) eventProperties.get(IdentityEventConstants.EventProperty.TENANT_DOMAIN);
-        //String userStoreDomain = (String) eventProperties.get(IdentityEventConstants.EventProperty.USER_STORE_DOMAIN);
         String eventName = event.getEventName();
 
+        // Define event properties for create gRPC event message
         Map<String, String> grpcMap = new HashMap<>();
         grpcMap.put("user-name", userName);
         grpcMap.put("tenant-domain", tenantDomain);
-        //grpcMap.put("user-store-domain", userStoreDomain);
-        grpcMap.put("user-store-domain", "PRIMARY");
 
-        //define grpc event message
+        // Define the gRPC event message
         Service.Event event1 = Service.Event.newBuilder().setEvent(eventName).putAllEventProperties(grpcMap).build();
-        //obtaining log from remote server
+
+        // Obtain log message from remote gRPC server
         Service.Log remoteLog = clientStub.handleEvent(event1);
         log.info(remoteLog.getLog());
 
-    }
-
-    private void triggerSampleEvent(User user, String eventName)
-            throws IdentityEventException {
-
-        HashMap<String, Object> properties = new HashMap<String, Object>();
-
-        properties.put(IdentityEventConstants.EventProperty.USER_NAME, user.getUserName());
-        properties.put(IdentityEventConstants.EventProperty.
-                TENANT_DOMAIN, user.getTenantDomain());
-        properties.put(IdentityEventConstants.EventProperty.
-                USER_STORE_DOMAIN, user.getUserStoreDomain());
-
-        Event sampleEvent = new Event(eventName, properties);
-        try {
-            new GrpcEventHandlerComponent().getIdentityEventService().handleEvent(sampleEvent);
-        } catch (IdentityEventException identityEventException) {
-            identityEventException.printStackTrace();
-        }
     }
 }

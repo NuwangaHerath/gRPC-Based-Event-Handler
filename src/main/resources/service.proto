@@ -7,23 +7,22 @@ service service{
   rpc handleEvent(Event) returns (Log){};
 }
 
+message Empty{
+
+}
 message HandlerName{
   string  name = 1;
 }
+message MessageContext{
 
+}
 message Priority{
   int32 priority = 1;
 }
-
-message MessageContext{}
-
 message Event{
   string  event = 1;
   map<string,string> eventProperties = 3;
 }
-
 message Log{
   string log = 1;
 }
-
-message Empty{}

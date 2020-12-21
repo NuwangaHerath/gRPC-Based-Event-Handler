@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.0.0" localization="OSGI-INF/metatype/metatype">
-    <OCD id="org.wso2.custom.event.handler.internal.CustomEventHandlerComponent" name="%org.wso2.custom.event.handler.internal.CustomEventHandlerComponent.name" description="%org.wso2.custom.event.handler.internal.CustomEventHandlerComponent.description"/>
-    <Designate pid="org.wso2.custom.event.handler.internal.CustomEventHandlerComponent">
-        <Object ocdref="org.wso2.custom.event.handler.internal.CustomEventHandlerComponent"/>
+    <OCD id="org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent" name="%org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent.name" description="%org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent.description"/>
+    <Designate pid="org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent">
+        <Object ocdref="org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent"/>
     </Designate>
 </metatype:MetaData>
