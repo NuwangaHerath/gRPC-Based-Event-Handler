@@ -2,7 +2,7 @@
 
 
 ## Getting Started
-You can get a clear knowledge on configuring of the gRPC Custom Event Handler by following this small guide wich contains main sections listed below.
+You can get a clear knowledge on configuring of the gRPC Custom Event Handler by following this small guide which contains main sections listed below.
 
 - [Configuring Event Handler](#configuring-event-handler)
 - [Configuring Identity Server](#configuring-identity-server)
