@@ -10,12 +10,18 @@
 ## Getting Started
 You can get a clear knowledge on configuring of the gRPC Custom Event Handler by following this small guide wich contains main sections listed below.
 
-- [Prerequisites](#prerequisites)
+- [Configuring Event Handler](#configuring-event-handler)
 - [Configuring Identity Server](#configuring-identity-server)
 - [Configuring gRPC Server](#configuring-grpc-server)
 - [Running the sample](#running-the-sample)
 
-### Prerequisites
+### Configuring Event Handler
+1. Download/Clone the project into your machine.
+2. Build the project using maven.
+```sh
+$ mvn clean install
+```
+3. Copy the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` to `{wso2is-home}/repository/component/dropins` directory.
 
 ### Configuring Identity Server
 
