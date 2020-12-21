@@ -21,10 +21,25 @@ You can get a clear knowledge on configuring of the gRPC Custom Event Handler by
 ```sh
 $ mvn clean install
 ```
-3. Copy the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` to `{wso2is-home}/repository/component/dropins` directory.
+3. Copy the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` file into `{wso2is-home}/repository/component/dropins` directory.
 
 ### Configuring Identity Server
-
+Add following custom event configuration to `{wso2is-home}/repository/conf/deployment.toml` file.
+```sh
+[[event_handler]]
+name="grpcBasedEventHandler"
+subscriptions=["PRE_ADD_USER","POST_ADD_USER"]
+enable=true
+properties.host="<gRPC_server_host>"
+properties.port="<gRPC_server_port>"
+```
 ### Configuring gRPC Server
+Use [service.proto](https://github.com/NuwangaHerath/gRPC-Custom-Event-Handler/blob/main/src/main/resources/service.proto) to implement the gRPC server.
+- You can find sample gRPC servers for Custom Event Handler from the below table.
+
+| Language | Link |
+| ------ | ------ |
+| Java | [gRPC Event Handler Server-Java](https://github.com/NuwangaHerath/grpc-custom-event-handler-server) |
+| Python | [gRPC Event Handler Server-Python](https://github.com/NuwangaHerath/grpc-event-handler-server-python)|
 
 ### Running the sample
