@@ -40,7 +40,7 @@ public class GrpcEventHandlerComponent {
         // Register the custom listener as an OSGI service.
         context.getBundleContext().registerService(
                 AbstractEventHandler.class.getName(), eventHandler, null);
-        log.info("gRPC event handler activated successfully.");
+        log.info("gRPC event handler is activated successfully.");
     }
 
     @Deactivate
