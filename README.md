@@ -19,7 +19,7 @@ You can download the `service.proto` file [here](https://github.com/NuwangaHerat
 
 Follow [this](https://grpc.io/docs/) documentation to implement a gRPC server in any preferred gRPC supported language.
 
-You can find sample gRPC servers for Custom Event Handler from the below table.
+You can find sample gRPC servers from the below table.
 
 | Language | Link |
 | ------ | ------ |
