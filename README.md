@@ -28,17 +28,13 @@ You can find sample gRPC servers for Custom Event Handler from the below table.
 
 Note down the `host` and `port` of the server for [Identity Server Configurations](#configuring-identity-server).
 
+- In the samples, It is used `localhost` as the server host and `8010` as the server port.
 
-### Configuring Event Handler
-1. Download/Clone the project into your machine.
-2. Build the project using maven.
-```sh
-$ mvn clean install
-```
-3. Copy the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` file into `{wso2is-home}/repository/component/dropins` directory.
 
 ### Configuring Identity Server
-Add following custom event configuration to `{wso2is-home}/repository/conf/deployment.toml` file.
+1. Download the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` from [here](https://github.com/NuwangaHerath/gRPC-Custom-Event-Handler/releases/tag/v1.0.0) or [Building from the source](#building-from-the-source).
+2. Copy the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` file into `{wso2is-home}/repository/component/dropins` directory.
+3. Add following custom event configuration to `{wso2is-home}/repository/conf/deployment.toml` file.
 ```sh
 [[event_handler]]
 name="grpcBasedEventHandler"
@@ -46,6 +42,15 @@ subscriptions=["<events for subscribe>"]
 enable=true
 properties.host="<gRPC_server_host>"
 properties.port="<gRPC_server_port>"
+```
+- As a demo, `PRE_ADD_USER` and `POST_ADD_USER` are used as subscription events.
+```sh
+[[event_handler]]
+name="grpcBasedEventHandler"
+subscriptions=["PRE_ADD_USER","POST_ADD_USER"]
+enable=true
+properties.host="localhost"
+properties.port="8010"
 ```
 
 ### Running the sample
@@ -56,4 +61,14 @@ properties.port="<gRPC_server_port>"
 INFO {org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent} - gRPC event handler activated successfully.
 ```
 4. Execute the subscribed events to check the working of the event handler.
+
+## Building from the source
+
+1. Download/Clone the project into your local machine.
+2. Open a terminal from project directory of your machine.
+2. Build the project using maven by executing following command in the terminal.
+```sh
+$ mvn clean install
+```
+3. Copy the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` file.
 
