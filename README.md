@@ -86,5 +86,5 @@ $ git clone https://github.com/NuwangaHerath/gRPC-Based-Event-Handler.git
 ```sh
 $ mvn clean install
 ```
-3. Copy the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` file from `targer` directory.
+3. Copy the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` file from `target` directory.
 
