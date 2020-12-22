@@ -1,13 +1,29 @@
-# gRPC Custom Event Handler
-
+# gRPC Based Event Handler
+gRPC Based Event Handler implements its methods on a remote gRPC server rather than implement in its own.Using this event handler, developers can be able to handle events only by configuring the `identity-event.properties` file of the WSO2 Identity Server and the gRPC server.
+- [Getting Started](#getting-started)
+- [Building from the source](#building-from-the-source)
 
 ## Getting Started
-You can get a clear knowledge on configuring of the gRPC Custom Event Handler by following this small guide which contains main sections listed below.
+You can get a clear knowledge on configuring of the gRPC Based Event Handler by following this small guide which contains main sections listed below.
 
-- [Configuring Event Handler](#configuring-event-handler)
-- [Configuring Identity Server](#configuring-identity-server)
 - [Configuring gRPC Server](#configuring-grpc-server)
+- [Configuring Identity Server](#configuring-identity-server)
 - [Running the sample](#running-the-sample)
+
+Throughout the instructions `{wso2is-home}` is referred as the root directory of the WSO2 Identity Server.
+
+### Configuring gRPC Server
+Use [service.proto](https://github.com/NuwangaHerath/gRPC-Custom-Event-Handler/blob/main/src/main/resources/service.proto) to implement the gRPC server.
+You can download the `service.proto` file [here](https://github.com/NuwangaHerath/gRPC-Custom-Event-Handler/releases/tag/v1.0.0).
+You can find sample gRPC servers for Custom Event Handler from the below table.
+
+| Language | Link |
+| ------ | ------ |
+| Java | [gRPC Event Handler Server-Java](https://github.com/NuwangaHerath/grpc-custom-event-handler-server) |
+| Python | [gRPC Event Handler Server-Python](https://github.com/NuwangaHerath/grpc-event-handler-server-python)|
+
+Make sure to change `host` and `port` properties of the custom event configuration in the `{wso2is-home}/repository/conf/deployment.toml` file according to the server.
+
 
 ### Configuring Event Handler
 1. Download/Clone the project into your machine.
@@ -27,16 +43,6 @@ enable=true
 properties.host="<gRPC_server_host>"
 properties.port="<gRPC_server_port>"
 ```
-### Configuring gRPC Server
-Use [service.proto](https://github.com/NuwangaHerath/gRPC-Custom-Event-Handler/blob/main/src/main/resources/service.proto) to implement the gRPC server.
-You can find sample gRPC servers for Custom Event Handler from the below table.
-
-| Language | Link |
-| ------ | ------ |
-| Java | [gRPC Event Handler Server-Java](https://github.com/NuwangaHerath/grpc-custom-event-handler-server) |
-| Python | [gRPC Event Handler Server-Python](https://github.com/NuwangaHerath/grpc-event-handler-server-python)|
-
-Make sure to change `host` and `port` properties of the custom event configuration in the `{wso2is-home}/repository/conf/deployment.toml` file according to the server.
 
 ### Running the sample
 1. Start the gRPC Server.
