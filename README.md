@@ -1,5 +1,5 @@
 # gRPC Based Event Handler
-gRPC Based Event Handler implements its methods on a remote gRPC server rather than implement in its own.Using this event handler, developers can be able to handle events only by configuring the `identity-event.properties` file of the WSO2 Identity Server and the gRPC server.
+gRPC Based Event Handler implements its methods on a remote gRPC server rather than implements in its own.Using this event handler, developers can be able to handle events only by configuring the `identity-event.properties` file of the WSO2 Identity Server and the gRPC server.
 - [Getting Started](#getting-started)
 - [Building from the source](#building-from-the-source)
 
