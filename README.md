@@ -46,7 +46,7 @@ properties.host="<gRPC_server_host>"
 properties.port="<gRPC_server_port>"
 ```
 - In the samples, `PRE_ADD_USER` and `POST_ADD_USER` are used as subscription events.
-- And here it is used `localhost` as host and `8010` as port.
+- And it is used `localhost` as host and `8010` as port.
 ```sh
 [[event_handler]]
 name="grpcBasedEventHandler"
