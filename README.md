@@ -72,7 +72,7 @@ $ sh wso2server.sh
 INFO {org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent} - gRPC event handler activated successfully.
 ```
 4. Execute the subscribed events to check the working of the event handler.
-- For our samples, add a user to identity server as event handler subscribed `PRE_ADD_USER` and `POST_ADD_USER` events.
+- As event handler subscribed `PRE_ADD_USER` and `POST_ADD_USER` events in the samples, add a user to identity server.
 - check the logs in the terminal
 
 ## Building from the source
