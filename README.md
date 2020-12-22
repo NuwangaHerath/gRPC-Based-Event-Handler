@@ -32,7 +32,7 @@ Note down the `host` and `port` of the server for [Identity Server Configuration
 
 
 ### Configuring Identity Server
-1. Download the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` from [here](https://github.com/NuwangaHerath/gRPC-Custom-Event-Handler/releases/tag/v1.0.0) or [Building from the source](#building-from-the-source).
+1. Download the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` from [here](https://github.com/NuwangaHerath/gRPC-Custom-Event-Handler/releases/tag/v1.0.0) or [building from the source](#building-from-the-source).
 2. Copy the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` file into `{wso2is-home}/repository/component/dropins` directory.
 3. Add following custom event configuration to `{wso2is-home}/repository/conf/deployment.toml` file to configure `identity-event.properties` file of the identity server.
 - Add values for `host` and `port` properties from the [previous step](#configuring-grpc-server)
