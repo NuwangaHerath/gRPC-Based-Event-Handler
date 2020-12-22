@@ -8,4 +8,5 @@
 
 # Ignore everything in this directory
 target
+*.iml
 .idea
