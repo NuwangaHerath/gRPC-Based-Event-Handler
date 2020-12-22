@@ -78,6 +78,9 @@ INFO {org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent} - gRPC eve
 ## Building from the source
 
 1. Download/Clone the project into your local machine.
+```sh
+$ git clone https://github.com/NuwangaHerath/gRPC-Based-Event-Handler.git
+```
 2. Open a terminal from project directory of your machine.
 2. Build the project using maven by executing following command in the terminal.
 ```sh
