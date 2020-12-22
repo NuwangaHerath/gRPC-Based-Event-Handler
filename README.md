@@ -44,6 +44,7 @@ properties.host="<gRPC_server_host>"
 properties.port="<gRPC_server_port>"
 ```
 - As a demo, `PRE_ADD_USER` and `POST_ADD_USER` are used as subscription events.
+- And here it is used `localhost` as host and `8010` as port.
 ```sh
 [[event_handler]]
 name="grpcBasedEventHandler"
@@ -55,12 +56,22 @@ properties.port="8010"
 
 ### Running the sample
 1. Start the gRPC Server.
-2. Start the Identity Server.
+2. Start the Identity Server by executing following commands from `{wso2is-hom}/bin` directory.
+
+```sh
+For Windows
+$ wso2server.bat --run
+
+For Linux
+$ sh wso2server.sh
+```
 3. Check activation of the event handler by checking the logs.
 ```sh
 INFO {org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent} - gRPC event handler activated successfully.
 ```
 4. Execute the subscribed events to check the working of the event handler.
+- For our samples, add a user to identity server as event handler subscribed `PRE_ADD_USER` and `POST_ADD_USER` events.
+- check the logs in the terminal
 
 ## Building from the source
 
@@ -70,5 +81,5 @@ INFO {org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent} - gRPC eve
 ```sh
 $ mvn clean install
 ```
-3. Copy the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` file.
+3. Copy the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` file from `targer` directory.
 
