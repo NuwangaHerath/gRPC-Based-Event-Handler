@@ -6,13 +6,13 @@ This implementation of gRPC Based Event Handler enables users to implement platf
 ## Getting Started
 You can get a clear knowledge on configuring of the gRPC Based Event Handler by following this small guide which contains main sections listed below.
 
-- [Configuring gRPC Server](#configuring-grpc-server)
+- [Configuring gRPC Server](#configuring-a-grpc-server)
 - [Configuring Identity Server](#configuring-identity-server)
 - [Running the sample](#running-the-sample)
 
 Throughout the instructions `{wso2is-home}` is referred as the root directory of the WSO2 Identity Server.
 
-### Configuring gRPC Server
+### Implementing a gRPC Server
 Use [service.proto](https://github.com/NuwangaHerath/gRPC-Custom-Event-Handler/blob/main/src/main/resources/service.proto) to implement the gRPC server.
 
 You can download the `service.proto` file [here](https://github.com/NuwangaHerath/gRPC-Custom-Event-Handler/releases/tag/v1.0.0).
@@ -27,14 +27,14 @@ You can find sample gRPC servers from the below table.
 | Python | [gRPC Event Handler Server-Python](https://github.com/NuwangaHerath/grpc-event-handler-server-python)|
 
 - For this guide we used Python gRPC server.
-Note down the `host` and `port` of the server for [Identity Server Configurations](#configuring-identity-server).
+- Note down the `host` and `port` of the server for [Identity Server Configurations](#configuring-identity-server).
 
 
 ### Configuring Identity Server
 1. Download the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` from [here](https://github.com/NuwangaHerath/gRPC-Custom-Event-Handler/releases/tag/v1.0.0) or [build from the source](#build-from-the-source).
 2. Copy the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` file into `{wso2is-home}/repository/component/dropins` directory.
 3. Add following custom event configuration to `{wso2is-home}/repository/conf/deployment.toml` file to configure `identity-event.properties` file of the identity server.
-- Replace the  values of `host` and `port` from the respective values you copied from the [previous step](#configuring-grpc-server).
+- Replace the  values of `host` and `port` from the respective values you copied from the [previous step](#implementing-a-grpc-server).
 
 ```toml
 [[event_handler]]
@@ -73,6 +73,8 @@ INFO {org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent} - gRPC eve
 4. Execute one of the subscribed events such as creating a user to verify the execution of the event handler.
 5. You should be able to following log
 ```
+INFO {org.wso2.grpc.event.handler.GrpcEventHandler} - testing POST_ADD_USER event using GrpcEventHandler on Python gRPC server with UserName- testuser, TenantDomain- carbon.super
+
 ```
 
 ## Build from the source
