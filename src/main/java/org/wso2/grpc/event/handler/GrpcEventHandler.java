@@ -42,33 +42,41 @@ public class GrpcEventHandler extends AbstractEventHandler {
 
     private static Log log = LogFactory.getLog(GrpcEventHandler.class);
     private ModuleConfiguration grpcEventHandlerConfiguration;
+    private String grpcServerHost;
+    private String grpcServerPort;
+    private ManagedChannel channel;
+    private serviceGrpc.serviceBlockingStub clientStub;
 
-    {
-        try {
-            grpcEventHandlerConfiguration = IdentityEventConfigBuilder.getInstance().getModuleConfigurations
-                    ("grpcBasedEventHandler");
-        } catch (IdentityEventException e) {
-            log.info("IdentityEventException: ", e);
+    public GrpcEventHandler() {
+
+        {
+            try {
+                this.grpcEventHandlerConfiguration = IdentityEventConfigBuilder.getInstance().getModuleConfigurations
+                        ("grpcBasedEventHandler");
+            } catch (IdentityEventException e) {
+                log.info("IdentityEventException: ", e);
+            }
         }
+
+        // Obtain grpcServerHost and grpcServerPort from identity-event properties.
+        this.grpcServerHost = grpcEventHandlerConfiguration.getModuleProperties()
+                .getProperty("grpcBasedEventHandler.host");
+        this.grpcServerPort = grpcEventHandlerConfiguration.getModuleProperties()
+                .getProperty("grpcBasedEventHandler.port");
+
+        // Create the channel for gRPC server.
+        this.channel = NettyChannelBuilder.forAddress(grpcServerHost, Integer.parseInt(grpcServerPort))
+                .usePlaintext().build();
+
+        // Create the gRPC client stub.
+        this.clientStub = serviceGrpc.newBlockingStub(channel);
+
     }
-
-    // Obtain grpcServerHost and grpcServerPort from identity-event properties.
-    private String grpcServerHost = grpcEventHandlerConfiguration.getModuleProperties()
-            .getProperty("grpcBasedEventHandler.host");
-    private String grpcServerPort = grpcEventHandlerConfiguration.getModuleProperties()
-            .getProperty("grpcBasedEventHandler.port");
-
-    // Create the channel for gRPC server.
-    ManagedChannel channel = NettyChannelBuilder.forAddress(grpcServerHost, Integer.parseInt(grpcServerPort))
-            .usePlaintext().build();
-
-    // Create the gRPC client stub.
-    serviceGrpc.serviceBlockingStub clientStub = serviceGrpc.newBlockingStub(channel);
 
     @Override
     public String getName() {
 
-        // Obtain handlerName from remote gRPC server
+        // Obtain handlerName from remote gRPC server.
         Service.HandlerName handlerName = clientStub.getName(Service.Empty.newBuilder().build());
         return handlerName.getName();
     }
@@ -76,7 +84,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
     @Override
     public int getPriority(MessageContext messageContext) {
 
-        // Obtain priority from remote gRPC server
+        // Obtain priority from remote gRPC server.
         Service.Priority priority = clientStub.getPriority(Service.MessageContext.newBuilder().build());
         return priority.getPriority();
     }
@@ -89,7 +97,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
         String tenantDomain = (String) eventProperties.get(IdentityEventConstants.EventProperty.TENANT_DOMAIN);
         String eventName = event.getEventName();
 
-        // Define event properties for create gRPC event message
+        // Define event properties for create gRPC event message.
         Map<String, String> grpcMap = new HashMap<>();
         grpcMap.put("user-name", userName);
         grpcMap.put("tenant-domain", tenantDomain);
@@ -97,7 +105,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
         // Define the gRPC event message
         Service.Event event1 = Service.Event.newBuilder().setEvent(eventName).putAllEventProperties(grpcMap).build();
 
-        // Obtain log message from remote gRPC server
+        // Obtain log message from remote gRPC server.
         Service.Log remoteLog = clientStub.handleEvent(event1);
         log.info(remoteLog.getLog());
 
