@@ -44,12 +44,12 @@ enable=true
 properties.host="<gRPC_server_host>"
 properties.port="<gRPC_server_port>"
 ```
-- For this guide we will be using `PRE_ADD_USER` and `POST_ADD_USER` as the subscription events.
+- For this guide we will be using `POST_ADD_USER` as the subscription event.
 - And host is identified as `localhost` and port is identified as`8010`.
 ```toml
 [[event_handler]]
 name="grpcBasedEventHandler"
-subscriptions=["PRE_ADD_USER","POST_ADD_USER"]
+subscriptions=["POST_ADD_USER"]
 enable=true
 properties.host="localhost"
 properties.port="8010"
