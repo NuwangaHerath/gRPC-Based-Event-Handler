@@ -1,6 +1,7 @@
 # gRPC Based Event Handler
 This implementation of gRPC Based Event Handler enables users to implement platform independent event handlers to WSO2 Identity Server.
 ![alt text](https://github.com/NuwangaHerath/gRPC-Based-Event-Handler/blob/main/Architecture/Architecture.png?raw=true|width="10")
+<img src="https://github.com/NuwangaHerath/gRPC-Based-Event-Handler/blob/main/Architecture/Architecture.png" width="48">
 - [Getting Started](#getting-started)
 - [Build from the source](#build-from-the-source)
 
