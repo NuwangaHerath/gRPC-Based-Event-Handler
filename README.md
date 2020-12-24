@@ -71,7 +71,7 @@ $ sh wso2server.sh
 INFO {org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent} - gRPC event handler activated successfully.
 ```
 4. Execute one of the subscribed events such as creating a user to verify the execution of the event handler.
-5. You should be able to following log
+5. You should be able to see following log
 ```
 INFO {org.wso2.grpc.event.handler.GrpcEventHandler} - testing POST_ADD_USER event using GrpcEventHandler on Python gRPC server with UserName- testuser, TenantDomain- carbon.super
 
