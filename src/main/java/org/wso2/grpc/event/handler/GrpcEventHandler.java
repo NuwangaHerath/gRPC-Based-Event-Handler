@@ -99,8 +99,11 @@ public class GrpcEventHandler extends AbstractEventHandler {
 
         // Define event properties for create gRPC event message.
         Map<String, String> grpcMap = new HashMap<>();
-        grpcMap.put("user-name", userName);
-        grpcMap.put("tenant-domain", tenantDomain);
+        for (Map.Entry<String, Object> entry : eventProperties.entrySet()) {
+            if (entry.getValue() != null && entry.getValue().getClass().equals(String.class)) {
+                grpcMap.put(entry.getKey(), entry.getValue().toString());
+            }
+        }
 
         // Define the gRPC event message
         Service.Event event1 = Service.Event.newBuilder().setEvent(eventName).putAllEventProperties(grpcMap).build();
