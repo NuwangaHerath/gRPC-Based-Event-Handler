@@ -52,6 +52,12 @@
             <version>1.15.1</version>
         </dependency>
         <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-tcnative-boringssl-static</artifactId>
+            <version>2.0.12.Final</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-protobuf</artifactId>
             <version>1.15.1</version>
@@ -72,11 +78,6 @@
             <version>9.0.11</version>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>29.0-android</version>
-        </dependency>
-        <dependency>
             <groupId>io.opencensus</groupId>
             <artifactId>opencensus-api</artifactId>
             <version>0.23.0</version>
@@ -89,7 +90,7 @@
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-protobuf</artifactId>
-            <version>1.33.1</version>
+            <version>1.15.1</version>
         </dependency>
         <dependency>
             <groupId>io.opencensus</groupId>
@@ -101,6 +102,12 @@
             <artifactId>grpc-context</artifactId>
             <version>1.15.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>failureaccess</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
         <!-- end for grpc-->
 
     </dependencies>
@@ -152,7 +159,9 @@
                             org.wso2.carbon.identity.event.*; version="[5.12.0, 6.0.0)"
                         </Import-Package>
                         <DynamicImport-Package>*</DynamicImport-Package>
-                        <Embed-Dependency>grpc-core|grpc-netty-shaded|grpc-protobuf|protobuf-java|grpc-stub|opencensus-api|grpc-protobuf-lite|opencensus-contrib-grpc-metrics|grpc-context</Embed-Dependency>
+                        <Embed-Dependency>
+                            grpc-core|grpc-netty-shaded|grpc-protobuf|protobuf-java|grpc-stub|opencensus-api|grpc-protobuf-lite|opencensus-contrib-grpc-metrics|grpc-context
+                        </Embed-Dependency>
                     </instructions>
                 </configuration>
             </plugin>

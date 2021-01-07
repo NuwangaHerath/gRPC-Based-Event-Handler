@@ -19,7 +19,10 @@
 package org.wso2.grpc.event.handler;
 
 import io.grpc.ManagedChannel;
+import io.grpc.netty.shaded.io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
+import io.grpc.netty.shaded.io.netty.handler.ssl.SslContext;
+import io.grpc.netty.shaded.io.netty.handler.ssl.SslContextBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wso2.carbon.identity.core.bean.context.MessageContext;
@@ -32,8 +35,10 @@ import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
 import org.wso2.grpc.event.handler.grpc.Service;
 import org.wso2.grpc.event.handler.grpc.serviceGrpc;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import javax.net.ssl.SSLException;
 
 /**
  * GrpcEventHandler overrides methods of AbstractEventHandler using gRPC stubs.
@@ -64,9 +69,15 @@ public class GrpcEventHandler extends AbstractEventHandler {
         this.grpcServerPort = grpcEventHandlerConfiguration.getModuleProperties()
                 .getProperty("grpcBasedEventHandler.port");
 
-        // Create the channel for gRPC server.
-        this.channel = NettyChannelBuilder.forAddress(grpcServerHost, Integer.parseInt(grpcServerPort))
-                .usePlaintext().build();
+        // Create the channel for gRPC server with server authentication SSL/TLS.
+        File clientCACertFile = new File("/home/nuwanga/wso2/custom-event-handler/src/main/java/org/wso2/grpc/event/handler/cert1/ca-cert.pem");
+        try {
+            this.channel = NettyChannelBuilder.forAddress(grpcServerHost, Integer.parseInt(grpcServerPort))
+                    .sslContext(GrpcSslContexts.forClient().trustManager(clientCACertFile).build())
+                    .build();
+        } catch (SSLException e) {
+            e.printStackTrace();
+        }
 
         // Create the gRPC client stub.
         this.clientStub = serviceGrpc.newBlockingStub(channel);
