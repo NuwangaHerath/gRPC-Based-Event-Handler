@@ -21,8 +21,6 @@ package org.wso2.grpc.event.handler;
 import io.grpc.ManagedChannel;
 import io.grpc.netty.shaded.io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
-import io.grpc.netty.shaded.io.netty.handler.ssl.SslContext;
-import io.grpc.netty.shaded.io.netty.handler.ssl.SslContextBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wso2.carbon.identity.core.bean.context.MessageContext;
@@ -49,9 +47,12 @@ public class GrpcEventHandler extends AbstractEventHandler {
     private ModuleConfiguration grpcEventHandlerConfiguration;
     private String grpcServerHost;
     private String grpcServerPort;
+    private String caCertPath;
     private ManagedChannel channel;
     private serviceGrpc.serviceBlockingStub clientStub;
+    private File clientCACertFile;
 
+    @SuppressWarnings("checkstyle:WhitespaceAfter")
     public GrpcEventHandler() {
 
         {
@@ -69,14 +70,20 @@ public class GrpcEventHandler extends AbstractEventHandler {
         this.grpcServerPort = grpcEventHandlerConfiguration.getModuleProperties()
                 .getProperty("grpcBasedEventHandler.port");
 
+        // Obtain certPath from identity-event properties.
+        this.caCertPath = grpcEventHandlerConfiguration.getModuleProperties()
+                .getProperty("grpcBasedEventHandler.certPath");
+
+        // Obtain the CA certificate file.
+        this.clientCACertFile = new File(caCertPath);
+
         // Create the channel for gRPC server with server authentication SSL/TLS.
-        File clientCACertFile = new File("/home/nuwanga/wso2/custom-event-handler/src/main/java/org/wso2/grpc/event/handler/cert1/ca-cert.pem");
         try {
             this.channel = NettyChannelBuilder.forAddress(grpcServerHost, Integer.parseInt(grpcServerPort))
                     .sslContext(GrpcSslContexts.forClient().trustManager(clientCACertFile).build())
                     .build();
         } catch (SSLException e) {
-            e.printStackTrace();
+            log.info("SSLException: ", e);
         }
 
         // Create the gRPC client stub.
