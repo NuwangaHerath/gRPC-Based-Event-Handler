@@ -45,7 +45,9 @@ subscriptions=["<events for subscribe>"]
 enable=true
 properties.host="<gRPC_server_host>"
 properties.port="<gRPC_server_port>"
+properties.certPath="<Path_to_CA's_certificate>"
 ```
+- Give the full path of the CA's certificate(`ca-cert.pem`) generated from [Generating TLS Certificates](#generating-tls-certificates) as `certPath`.
 - For this guide we will be using `POST_ADD_USER` as the subscription event.
 - And host is identified as `localhost` and port is identified as`8010`.
 ```toml
@@ -55,6 +57,7 @@ subscriptions=["POST_ADD_USER"]
 enable=true
 properties.host="localhost"
 properties.port="8010"
+properties.certPath="<path_to_ca's-certificate>/ca-cert.pem"
 ```
 
 ### Running the sample
@@ -110,14 +113,16 @@ openssl x509 -req -in server-req.pem -days 60 -CA ca-cert.pem -CAkey ca-key.pem 
 ```
 You have to provide identity information for the certificates. To do that add the -subj (subject) option to the openssl req command as you can see above.
 In the subject string,
-`/C` for the country code
-`/ST` for the state or province
-`/L` for the locality name or city
-`/O` for the organization 
-`/OU` for the organization unit
-`/CN` for the common name or domain name
-`/emailAddress` for the email address
+- `/C` for the country code
+- `/ST` for the state or province
+- `/L` for the locality name or city
+- `/O` for the organization 
+- `/OU` for the organization unit
+- `/CN` for the common name or domain name
+- `/emailAddress` for the email address
 
 Make sure to give different values as identity information for self-signed certificate and for server's certificate. 
+
 Use the path name of `ca-cert.pem` for [Identity Server Configurations](#configuring-identity-server).
+
 Use `server-key.pem` and `server-cert.pem` for the step, [Implementing gRPC Server](#implementing-grpc-server).
