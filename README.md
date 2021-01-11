@@ -3,6 +3,7 @@ This implementation of gRPC Based Event Handler enables users to implement platf
 <img src="https://github.com/NuwangaHerath/images/blob/master/Architecture/Architecture.png" align="center" width="700">
 - [Getting Started](#getting-started)
 - [Build from the source](#build-from-the-source)
+- [Generating TLS Certificates](#generating-tls-certificates)
 
 ## Getting Started
 You can get a clear knowledge on configuring of the gRPC Based Event Handler by following this small guide which contains main sections listed below.
@@ -91,3 +92,4 @@ $ mvn clean install
 ```
 3. Copy the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` file from `target` directory.
 
+## Generating TLS Certificates
