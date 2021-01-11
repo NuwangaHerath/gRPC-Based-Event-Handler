@@ -20,7 +20,6 @@ package org.wso2.grpc.event.handler.internal;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.opensaml.xmlsec.encryption.Public;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Deactivate;
@@ -32,10 +31,8 @@ import org.wso2.grpc.event.handler.GrpcEventHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @scr.component name="org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent" immediate="true"
@@ -70,6 +67,14 @@ public class GrpcEventHandlerComponent {
 
     @Activate
     protected void activate(ComponentContext context) {
+
+        this.getHandlerConfiguration();
+        this.getServers(grpcEventHandlerConfiguration);
+        Iterator
+        while (servers.hasNext()) {
+            List<String> serverInfo = Arrays.asList(servers.next());
+            servers.add(serverInfo);
+        }
 
         GrpcEventHandler eventHandler = new GrpcEventHandler();
         // Register the custom listener as an OSGI service.
