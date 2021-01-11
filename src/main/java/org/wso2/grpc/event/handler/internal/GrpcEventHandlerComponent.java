@@ -44,7 +44,7 @@ public class GrpcEventHandlerComponent {
 
     private static Log log = LogFactory.getLog(GrpcEventHandlerComponent.class);
     private ModuleConfiguration grpcEventHandlerConfiguration;
-    private Map<String, String> servers = new HashMap<>();
+    private List<List<String>> servers = new ArrayList<>();
 
     public void getHandlerConfiguration() {
 
