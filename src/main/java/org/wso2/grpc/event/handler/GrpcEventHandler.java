@@ -52,7 +52,6 @@ public class GrpcEventHandler extends AbstractEventHandler {
     private serviceGrpc.serviceBlockingStub clientStub;
     private File clientCACertFile;
 
-    @SuppressWarnings("checkstyle:WhitespaceAfter")
     public GrpcEventHandler() {
 
         {
@@ -70,7 +69,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
         this.grpcServerPort = grpcEventHandlerConfiguration.getModuleProperties()
                 .getProperty("grpcBasedEventHandler.port");
 
-        // Obtain certPath from identity-event properties.
+         // Obtain certPath from identity-event properties.
         this.caCertPath = grpcEventHandlerConfiguration.getModuleProperties()
                 .getProperty("grpcBasedEventHandler.certPath");
 
@@ -130,5 +129,11 @@ public class GrpcEventHandler extends AbstractEventHandler {
         Service.Log remoteLog = clientStub.handleEvent(event1);
         log.info(remoteLog.getLog());
 
+    }
+
+    public void init(String host, String port) {
+
+        this.grpcServerHost = host;
+        this.grpcServerPort = port;
     }
 }

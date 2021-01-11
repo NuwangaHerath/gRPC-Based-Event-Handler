@@ -20,11 +20,19 @@ package org.wso2.grpc.event.handler.internal;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.opensaml.xmlsec.encryption.Public;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Deactivate;
+import org.wso2.carbon.identity.event.IdentityEventConfigBuilder;
+import org.wso2.carbon.identity.event.IdentityEventException;
+import org.wso2.carbon.identity.event.bean.ModuleConfiguration;
 import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
 import org.wso2.grpc.event.handler.GrpcEventHandler;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @scr.component name="org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent" immediate="true"
@@ -32,6 +40,24 @@ import org.wso2.grpc.event.handler.GrpcEventHandler;
 public class GrpcEventHandlerComponent {
 
     private static Log log = LogFactory.getLog(GrpcEventHandlerComponent.class);
+    private ModuleConfiguration grpcEventHandlerConfiguration;
+    private Map<String, String> servers = new HashMap<>();
+
+    public void getHandlerConfiguration() {
+
+        try {
+            this.grpcEventHandlerConfiguration = IdentityEventConfigBuilder.getInstance().getModuleConfigurations
+                    ("grpcBasedEventHandler");
+        } catch (IdentityEventException e) {
+            log.info("Identity Event Exception", e);
+        }
+    }
+
+    public void getServers(ModuleConfiguration handlerConfig) {
+
+        String serverConfigs = grpcEventHandlerConfiguration.getModuleProperties()
+                .getProperty("grpcBasedEventHandler.servers");
+    }
 
     @Activate
     protected void activate(ComponentContext context) {
