@@ -93,3 +93,31 @@ $ mvn clean install
 3. Copy the `org.wso2.grpc.event.handler-1.0.0-SNAPSHOT.jar` file from `target` directory.
 
 ## Generating TLS Certificates
+
+1. Make sure to have `openssl` installed in your PC.
+2. Use following script to generate TLS certificates.
+```sh
+rm *.pem
+
+# 1. Generate CA's private key and self-signed certificate
+openssl req -x509 -newkey rsa:4096 -days 365 -nodes -keyout ca-key.pem -out ca-cert.pem -subj "/C=US/ST=CA/L=Mountain View/O=WSO2/OU=WSO2/CN=localhost/emailAddress=example1@gmail.com"
+
+# 2. Generate web server's private key and certificate signing request (CSR)
+openssl req -newkey rsa:4096 -nodes -keyout server-key.pem -out server-req.pem -subj "/C=LK/ST=WP/L=Colombo/O=GRPC/OU=GRPC/CN=localhost/emailAddress=example2@gmail.com"
+
+# 3. Use CA's private key to sign web server's CSR and get back the signed certificate
+openssl x509 -req -in server-req.pem -days 60 -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem -extfile server-ext.cnf
+```
+You have to provide identity information for the certificates. To do that add the -subj (subject) option to the openssl req command as you can see above.
+In the subject string,
+`/C` for the country code
+`/ST` for the state or province
+`/L` for the locality name or city
+`/O` for the organization 
+`/OU` for the organization unit
+`/CN` for the common name or domain name
+`/emailAddress` for the email address
+
+Make sure to give different values as identity information for self-signed certificate and for server's certificate. 
+Use the path name of `ca-cert.pem` for [Identity Server Configurations](#configuring-identity-server).
+Use `server-key.pem` and `server-cert.pem` for the step, [Implementing gRPC Server](#implementing-grpc-server).
