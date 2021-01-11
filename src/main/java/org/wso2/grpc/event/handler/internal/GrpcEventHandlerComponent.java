@@ -65,15 +65,15 @@ public class GrpcEventHandlerComponent {
         }
     }
 
+    @SuppressWarnings("checkstyle:WhitespaceAround")
     @Activate
     protected void activate(ComponentContext context) {
 
         this.getHandlerConfiguration();
         this.getServers(grpcEventHandlerConfiguration);
-        Iterator
-        while (servers.hasNext()) {
-            List<String> serverInfo = Arrays.asList(servers.next());
-            servers.add(serverInfo);
+        Iterator<List<String>> serverList = servers.listIterator();
+        while (serverList.hasNext()) {
+            log.info(serverList.next().get(0) + ":" + serverList.next().get(1));
         }
 
         GrpcEventHandler eventHandler = new GrpcEventHandler();
