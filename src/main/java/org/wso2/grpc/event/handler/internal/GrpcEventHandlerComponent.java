@@ -31,7 +31,10 @@ import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
 import org.wso2.grpc.event.handler.GrpcEventHandler;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -57,6 +60,12 @@ public class GrpcEventHandlerComponent {
 
         String serverConfigs = grpcEventHandlerConfiguration.getModuleProperties()
                 .getProperty("grpcBasedEventHandler.servers");
+        List<String> serverList = Arrays.asList(serverConfigs.split(","));
+        Iterator<String> serverListArray = serverList.listIterator();
+        while (serverListArray.hasNext()) {
+            List<String> serverInfo = Arrays.asList(serverListArray.next().split(String.valueOf('#')));
+            servers.add(serverInfo);
+        }
     }
 
     @Activate
