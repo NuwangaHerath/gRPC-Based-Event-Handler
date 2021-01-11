@@ -63,11 +63,11 @@ public class GrpcEventHandler extends AbstractEventHandler {
             }
         }
 
-        // Obtain grpcServerHost and grpcServerPort from identity-event properties.
-        this.grpcServerHost = grpcEventHandlerConfiguration.getModuleProperties()
-                .getProperty("grpcBasedEventHandler.host");
-        this.grpcServerPort = grpcEventHandlerConfiguration.getModuleProperties()
-                .getProperty("grpcBasedEventHandler.port");
+//        // Obtain grpcServerHost and grpcServerPort from identity-event properties.
+//        this.grpcServerHost = grpcEventHandlerConfiguration.getModuleProperties()
+//                .getProperty("grpcBasedEventHandler.host");
+//        this.grpcServerPort = grpcEventHandlerConfiguration.getModuleProperties()
+//                .getProperty("grpcBasedEventHandler.port");
 
          // Obtain certPath from identity-event properties.
         this.caCertPath = grpcEventHandlerConfiguration.getModuleProperties()
