@@ -24,10 +24,8 @@ import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wso2.carbon.identity.core.bean.context.MessageContext;
-import org.wso2.carbon.identity.event.IdentityEventConfigBuilder;
 import org.wso2.carbon.identity.event.IdentityEventConstants;
 import org.wso2.carbon.identity.event.IdentityEventException;
-import org.wso2.carbon.identity.event.bean.ModuleConfiguration;
 import org.wso2.carbon.identity.event.event.Event;
 import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
 import org.wso2.grpc.event.handler.grpc.Service;
@@ -36,6 +34,7 @@ import org.wso2.grpc.event.handler.grpc.serviceGrpc;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import javax.net.ssl.SSLException;
 
 /**
@@ -44,37 +43,24 @@ import javax.net.ssl.SSLException;
 public class GrpcEventHandler extends AbstractEventHandler {
 
     private static Log log = LogFactory.getLog(GrpcEventHandler.class);
-    private ModuleConfiguration grpcEventHandlerConfiguration;
     private String grpcServerHost;
     private String grpcServerPort;
-    private String caCertPath;
     private ManagedChannel channel;
     private serviceGrpc.serviceBlockingStub clientStub;
-    //private File clientCACertFile;
 
-    public GrpcEventHandler() {
+    @Override
+    public Properties getSubscriptionProperties(String eventName) throws IdentityEventException {
 
-        {
-            try {
-                this.grpcEventHandlerConfiguration = IdentityEventConfigBuilder.getInstance().getModuleConfigurations
-                        ("grpcBasedEventHandler");
-            } catch (IdentityEventException e) {
-                log.info("IdentityEventException: ", e);
-            }
-        }
-//
-//        // Obtain grpcServerHost and grpcServerPort from identity-event properties.
-//        this.grpcServerHost = grpcEventHandlerConfiguration.getModuleProperties()
-//                .getProperty("grpcBasedEventHandler.host");
-//        this.grpcServerPort = grpcEventHandlerConfiguration.getModuleProperties()
-//                .getProperty("grpcBasedEventHandler.port");
+        log.info("test SubscriptionProperties : " + eventName);
 
-//         // Obtain certPath from identity-event properties.
-//        this.caCertPath = grpcEventHandlerConfiguration.getModuleProperties()
-//                .getProperty("grpcBasedEventHandler.certPath");
+        return super.getSubscriptionProperties(eventName);
+    }
 
-//        // Obtain the CA certificate file.
-//        this.clientCACertFile = new File(caCertPath);
+    @Override
+    public String getSubscriptionProperty(String propertyName, String eventName) throws IdentityEventException {
+
+        log.info("test getSubscriptionProperty : " + propertyName + ":" + eventName);
+        return super.getSubscriptionProperty(propertyName, eventName);
 
     }
 

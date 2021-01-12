@@ -49,14 +49,14 @@ public class GrpcEventHandlerComponent {
 
         try {
             this.grpcEventHandlerConfiguration = IdentityEventConfigBuilder.getInstance().getModuleConfigurations
-                    ("grpcBasedEventHandler");
+                    ("multiHandlers");
         } catch (IdentityEventException e) {
             log.info("Identity Event Exception", e);
         }
 
         // Obtain certPath from identity-event properties.
         String certFilePath = grpcEventHandlerConfiguration.getModuleProperties()
-                .getProperty("grpcBasedEventHandler.certPath");
+                .getProperty("multiHandlers.certPath");
 
         // Obtain the CA certificate file.
         this.certFile = new File(certFilePath);
@@ -64,8 +64,9 @@ public class GrpcEventHandlerComponent {
 
     public void getServers() {
 
+        // Obtains servers host and port configurations from identity-event properties.
         String serverConfigs = grpcEventHandlerConfiguration.getModuleProperties()
-                .getProperty("grpcBasedEventHandler.servers");
+                .getProperty("multiHandlers.servers");
         List<String> serverList = Arrays.asList(serverConfigs.split(","));
         Iterator<String> serverListArray = serverList.listIterator();
         while (serverListArray.hasNext()) {
@@ -77,6 +78,7 @@ public class GrpcEventHandlerComponent {
     @Activate
     protected void activate(ComponentContext context) {
 
+        // Create multiple event handler instances
         this.getHandlerConfiguration();
         this.getServers();
         Iterator<List<String>> serverList = servers.listIterator();
@@ -85,7 +87,8 @@ public class GrpcEventHandlerComponent {
             log.info(address.get(0) + ":" + address.get(1));
             GrpcEventHandler eventHandler = new GrpcEventHandler();
             eventHandler.init(address.get(0), address.get(1), certFile);
-            // Register the custom listener as an OSGI service.
+
+            // Register the event handlers as an OSGI service.
             context.getBundleContext().registerService(
                     AbstractEventHandler.class.getName(), eventHandler, null);
             log.info("gRPC event handler is activated successfully - " + address.get(0) + ":" + address.get(1));
