@@ -29,6 +29,7 @@ import org.wso2.carbon.identity.event.bean.ModuleConfiguration;
 import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
 import org.wso2.grpc.event.handler.GrpcEventHandler;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -42,6 +43,7 @@ public class GrpcEventHandlerComponent {
     private static Log log = LogFactory.getLog(GrpcEventHandlerComponent.class);
     private ModuleConfiguration grpcEventHandlerConfiguration;
     private List<List<String>> servers = new ArrayList<>();
+    private File certFile;
 
     public void getHandlerConfiguration() {
 
@@ -51,9 +53,16 @@ public class GrpcEventHandlerComponent {
         } catch (IdentityEventException e) {
             log.info("Identity Event Exception", e);
         }
+
+        // Obtain certPath from identity-event properties.
+        String certFilePath = grpcEventHandlerConfiguration.getModuleProperties()
+                .getProperty("grpcBasedEventHandler.certPath");
+
+        // Obtain the CA certificate file.
+        this.certFile = new File(certFilePath);
     }
 
-    public void getServers(ModuleConfiguration handlerConfig) {
+    public void getServers() {
 
         String serverConfigs = grpcEventHandlerConfiguration.getModuleProperties()
                 .getProperty("grpcBasedEventHandler.servers");
@@ -65,22 +74,23 @@ public class GrpcEventHandlerComponent {
         }
     }
 
-    @SuppressWarnings("checkstyle:WhitespaceAround")
     @Activate
     protected void activate(ComponentContext context) {
 
         this.getHandlerConfiguration();
-        this.getServers(grpcEventHandlerConfiguration);
+        this.getServers();
         Iterator<List<String>> serverList = servers.listIterator();
         while (serverList.hasNext()) {
-            log.info(serverList.next().get(0) + ":" + serverList.next().get(1));
+            List<String> address = serverList.next();
+            log.info(address.get(0) + ":" + address.get(1));
+            GrpcEventHandler eventHandler = new GrpcEventHandler();
+            eventHandler.init(address.get(0), address.get(1), certFile);
+            // Register the custom listener as an OSGI service.
+            context.getBundleContext().registerService(
+                    AbstractEventHandler.class.getName(), eventHandler, null);
+            log.info("gRPC event handler is activated successfully - " + address.get(0) + ":" + address.get(1));
         }
 
-        GrpcEventHandler eventHandler = new GrpcEventHandler();
-        // Register the custom listener as an OSGI service.
-        context.getBundleContext().registerService(
-                AbstractEventHandler.class.getName(), eventHandler, null);
-        log.info("gRPC event handler is activated successfully.");
     }
 
     @Deactivate

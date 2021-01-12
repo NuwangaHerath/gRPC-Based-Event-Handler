@@ -50,7 +50,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
     private String caCertPath;
     private ManagedChannel channel;
     private serviceGrpc.serviceBlockingStub clientStub;
-    private File clientCACertFile;
+    //private File clientCACertFile;
 
     public GrpcEventHandler() {
 
@@ -62,31 +62,19 @@ public class GrpcEventHandler extends AbstractEventHandler {
                 log.info("IdentityEventException: ", e);
             }
         }
+//
+//        // Obtain grpcServerHost and grpcServerPort from identity-event properties.
+//        this.grpcServerHost = grpcEventHandlerConfiguration.getModuleProperties()
+//                .getProperty("grpcBasedEventHandler.host");
+//        this.grpcServerPort = grpcEventHandlerConfiguration.getModuleProperties()
+//                .getProperty("grpcBasedEventHandler.port");
 
-        // Obtain grpcServerHost and grpcServerPort from identity-event properties.
-        this.grpcServerHost = grpcEventHandlerConfiguration.getModuleProperties()
-                .getProperty("grpcBasedEventHandler.host");
-        this.grpcServerPort = grpcEventHandlerConfiguration.getModuleProperties()
-                .getProperty("grpcBasedEventHandler.port");
+//         // Obtain certPath from identity-event properties.
+//        this.caCertPath = grpcEventHandlerConfiguration.getModuleProperties()
+//                .getProperty("grpcBasedEventHandler.certPath");
 
-         // Obtain certPath from identity-event properties.
-        this.caCertPath = grpcEventHandlerConfiguration.getModuleProperties()
-                .getProperty("grpcBasedEventHandler.certPath");
-
-        // Obtain the CA certificate file.
-        this.clientCACertFile = new File(caCertPath);
-
-        // Create the channel for gRPC server with server authentication SSL/TLS.
-        try {
-            this.channel = NettyChannelBuilder.forAddress(grpcServerHost, Integer.parseInt(grpcServerPort))
-                    .sslContext(GrpcSslContexts.forClient().trustManager(clientCACertFile).build())
-                    .build();
-        } catch (SSLException e) {
-            log.info("SSLException: ", e);
-        }
-
-        // Create the gRPC client stub.
-        this.clientStub = serviceGrpc.newBlockingStub(channel);
+//        // Obtain the CA certificate file.
+//        this.clientCACertFile = new File(caCertPath);
 
     }
 
@@ -131,9 +119,21 @@ public class GrpcEventHandler extends AbstractEventHandler {
 
     }
 
-    public void init(String host, String port) {
+    public void init(String host, String port, File clientCACertFile) {
 
         this.grpcServerHost = host;
         this.grpcServerPort = port;
+        // Create the channel for gRPC server with server authentication SSL/TLS.
+        try {
+            this.channel = NettyChannelBuilder.forAddress(grpcServerHost, Integer.parseInt(grpcServerPort))
+                    .sslContext(GrpcSslContexts.forClient().trustManager(clientCACertFile).build())
+                    .build();
+        } catch (SSLException e) {
+            log.info("SSLException: ", e);
+        }
+
+        // Create the gRPC client stub.
+        this.clientStub = serviceGrpc.newBlockingStub(channel);
+
     }
 }
