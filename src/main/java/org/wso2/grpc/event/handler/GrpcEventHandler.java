@@ -44,7 +44,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
 
     private static Log log = LogFactory.getLog(GrpcEventHandler.class);
     private String grpcServerHost;
-    private String grpcServerPort;
+    private int grpcServerPort;
     private ManagedChannel channel;
     private serviceGrpc.serviceBlockingStub clientStub;
 
@@ -105,13 +105,13 @@ public class GrpcEventHandler extends AbstractEventHandler {
 
     }
 
-    public void init(String host, String port, File clientCACertFile) {
+    public void init(String host, int port, File clientCACertFile) {
 
         this.grpcServerHost = host;
         this.grpcServerPort = port;
         // Create the channel for gRPC server with server authentication SSL/TLS.
         try {
-            this.channel = NettyChannelBuilder.forAddress(grpcServerHost, Integer.parseInt(grpcServerPort))
+            this.channel = NettyChannelBuilder.forAddress(grpcServerHost, grpcServerPort)
                     .sslContext(GrpcSslContexts.forClient().trustManager(clientCACertFile).build())
                     .build();
         } catch (SSLException e) {

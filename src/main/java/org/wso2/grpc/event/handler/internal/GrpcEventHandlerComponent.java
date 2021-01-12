@@ -26,7 +26,6 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.wso2.carbon.identity.event.IdentityEventConfigBuilder;
 import org.wso2.carbon.identity.event.IdentityEventException;
 import org.wso2.carbon.identity.event.bean.ModuleConfiguration;
-import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
 import org.wso2.grpc.event.handler.GrpcEventHandler;
 
 import java.io.File;
@@ -41,57 +40,60 @@ import java.util.List;
 public class GrpcEventHandlerComponent {
 
     private static Log log = LogFactory.getLog(GrpcEventHandlerComponent.class);
-    private ModuleConfiguration grpcEventHandlerConfiguration;
-    private List<List<String>> servers = new ArrayList<>();
+    private String grpcEventHandlerNames;
     private File certFile;
+    private List<String> handlerNames;
+    private List<HandlerProperties> handlerConfigs = new ArrayList<>();
 
-    public void getHandlerConfiguration() {
+    public void getHandlerNames() {
 
         try {
-            this.grpcEventHandlerConfiguration = IdentityEventConfigBuilder.getInstance().getModuleConfigurations
-                    ("multiHandlers");
+            this.grpcEventHandlerNames = IdentityEventConfigBuilder.getInstance().getModuleConfigurations
+                    ("multiHandlers").getModuleProperties().getProperty("multiHandlers.handlerNames");
         } catch (IdentityEventException e) {
             log.info("Identity Event Exception", e);
         }
-
-        // Obtain certPath from identity-event properties.
-        String certFilePath = grpcEventHandlerConfiguration.getModuleProperties()
-                .getProperty("multiHandlers.certPath");
-
-        // Obtain the CA certificate file.
-        this.certFile = new File(certFilePath);
+        this.handlerNames = Arrays.asList(grpcEventHandlerNames.split(","));
     }
 
-    public void getServers() {
+    public void getHandlers() {
 
-        // Obtains servers host and port configurations from identity-event properties.
-        String serverConfigs = grpcEventHandlerConfiguration.getModuleProperties()
-                .getProperty("multiHandlers.servers");
-        List<String> serverList = Arrays.asList(serverConfigs.split(","));
-        Iterator<String> serverListArray = serverList.listIterator();
-        while (serverListArray.hasNext()) {
-            List<String> serverInfo = Arrays.asList(serverListArray.next().split(String.valueOf('#')));
-            servers.add(serverInfo);
+        Iterator<String> handlerNamesArray = handlerNames.listIterator();
+        while (handlerNamesArray.hasNext()) {
+            String handlerName = handlerNamesArray.next();
+            ModuleConfiguration handlerConfiguration = null;
+            try {
+                handlerConfiguration = IdentityEventConfigBuilder.getInstance()
+                        .getModuleConfigurations(handlerName);
+            } catch (IdentityEventException e) {
+                log.info("Identity Event Exception", e);
+            }
+            String host = handlerConfiguration.getModuleProperties().getProperty(handlerName + ".host");
+            String port = handlerConfiguration.getModuleProperties().getProperty(handlerName + ".port");
+            String certPath = handlerConfiguration.getModuleProperties().getProperty(handlerName + ".certPath");
+            HandlerProperties handlerProperties = new HandlerProperties(handlerName, host, port, certPath);
+            this.handlerConfigs.add(handlerProperties);
         }
     }
 
     @Activate
     protected void activate(ComponentContext context) {
 
-        // Create multiple event handler instances
-        this.getHandlerConfiguration();
-        this.getServers();
-        Iterator<List<String>> serverList = servers.listIterator();
-        while (serverList.hasNext()) {
-            List<String> address = serverList.next();
-            log.info(address.get(0) + ":" + address.get(1));
+        // Create multiple event handler instances.
+        this.getHandlerNames();
+        this.getHandlers();
+
+        Iterator<HandlerProperties> handlerConfigsArray = this.handlerConfigs.listIterator();
+        while (handlerConfigsArray.hasNext()) {
+            HandlerProperties handlerProperties = handlerConfigsArray.next();
             GrpcEventHandler eventHandler = new GrpcEventHandler();
-            eventHandler.init(address.get(0), address.get(1), certFile);
+            eventHandler.init(handlerProperties.getHost(), handlerProperties.getPort()
+                    , handlerProperties.getCertFile());
 
             // Register the event handlers as an OSGI service.
             context.getBundleContext().registerService(
-                    AbstractEventHandler.class.getName(), eventHandler, null);
-            log.info("gRPC event handler is activated successfully - " + address.get(0) + ":" + address.get(1));
+                    handlerProperties.getHandlerName(), eventHandler, null);
+            log.info("gRPC event handler is activated successfully - " + handlerProperties.getHost() + ":" + handlerProperties.getPort());
         }
 
     }
