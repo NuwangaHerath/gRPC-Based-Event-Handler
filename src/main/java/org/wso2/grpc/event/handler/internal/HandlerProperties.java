@@ -23,13 +23,15 @@ import java.io.File;
 public class HandlerProperties {
 
     private String handlerName;
+    private int priority;
     private String host;
     private int port;
     private File certFile;
 
-    public HandlerProperties(String handlerName, String host, String port, String certPath) {
+    public HandlerProperties(String handlerName, String priority, String host, String port, String certPath) {
 
         this.handlerName = handlerName;
+        this.priority = Integer.parseInt(priority);
         this.host = host;
         this.port = Integer.parseInt(port);
         this.certFile = new File(certPath);
@@ -39,6 +41,10 @@ public class HandlerProperties {
     public String getHandlerName() {
 
         return this.handlerName;
+    }
+
+    public int getPriority() {
+        return this.priority;
     }
 
     public String getHost() {

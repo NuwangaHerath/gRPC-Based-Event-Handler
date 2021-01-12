@@ -26,6 +26,7 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.wso2.carbon.identity.event.IdentityEventConfigBuilder;
 import org.wso2.carbon.identity.event.IdentityEventException;
 import org.wso2.carbon.identity.event.bean.ModuleConfiguration;
+import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
 import org.wso2.grpc.event.handler.GrpcEventHandler;
 
 import java.io.File;
@@ -68,10 +69,12 @@ public class GrpcEventHandlerComponent {
             } catch (IdentityEventException e) {
                 log.info("Identity Event Exception", e);
             }
+            String priority = handlerConfiguration.getModuleProperties()
+                    .getProperty(handlerName + ".priority");
             String host = handlerConfiguration.getModuleProperties().getProperty(handlerName + ".host");
             String port = handlerConfiguration.getModuleProperties().getProperty(handlerName + ".port");
             String certPath = handlerConfiguration.getModuleProperties().getProperty(handlerName + ".certPath");
-            HandlerProperties handlerProperties = new HandlerProperties(handlerName, host, port, certPath);
+            HandlerProperties handlerProperties = new HandlerProperties(handlerName, priority, host, port, certPath);
             this.handlerConfigs.add(handlerProperties);
         }
     }
@@ -87,12 +90,12 @@ public class GrpcEventHandlerComponent {
         while (handlerConfigsArray.hasNext()) {
             HandlerProperties handlerProperties = handlerConfigsArray.next();
             GrpcEventHandler eventHandler = new GrpcEventHandler();
-            eventHandler.init(handlerProperties.getHost(), handlerProperties.getPort()
+            eventHandler.init(handlerProperties.getHandlerName(), handlerProperties.getPriority(), handlerProperties.getHost(), handlerProperties.getPort()
                     , handlerProperties.getCertFile());
 
             // Register the event handlers as an OSGI service.
             context.getBundleContext().registerService(
-                    handlerProperties.getHandlerName(), eventHandler, null);
+                    AbstractEventHandler.class.getName(), eventHandler, null);
             log.info("gRPC event handler is activated successfully - " + handlerProperties.getHost() + ":" + handlerProperties.getPort());
         }
 

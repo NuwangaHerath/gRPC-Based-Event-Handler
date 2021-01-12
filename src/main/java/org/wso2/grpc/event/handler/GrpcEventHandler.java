@@ -45,6 +45,8 @@ public class GrpcEventHandler extends AbstractEventHandler {
     private static Log log = LogFactory.getLog(GrpcEventHandler.class);
     private String grpcServerHost;
     private int grpcServerPort;
+    private String handlerName;
+    private int priority;
     private ManagedChannel channel;
     private serviceGrpc.serviceBlockingStub clientStub;
 
@@ -67,9 +69,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
     @Override
     public String getName() {
 
-        // Obtain handlerName from remote gRPC server.
-        Service.HandlerName handlerName = clientStub.getName(Service.Empty.newBuilder().build());
-        return handlerName.getName();
+        return this.handlerName;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
 
     }
 
-    public void init(String host, int port, File clientCACertFile) {
+    public void init(String handlerName, int priority, String host, int port, File clientCACertFile) {
 
         this.grpcServerHost = host;
         this.grpcServerPort = port;
