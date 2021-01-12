@@ -75,9 +75,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
     @Override
     public int getPriority(MessageContext messageContext) {
 
-        // Obtain priority from remote gRPC server.
-        Service.Priority priority = clientStub.getPriority(Service.MessageContext.newBuilder().build());
-        return priority.getPriority();
+        return this.priority;
     }
 
     @Override
@@ -107,6 +105,8 @@ public class GrpcEventHandler extends AbstractEventHandler {
 
     public void init(String handlerName, int priority, String host, int port, File clientCACertFile) {
 
+        this.handlerName = handlerName;
+        this.priority = priority;
         this.grpcServerHost = host;
         this.grpcServerPort = port;
         // Create the channel for gRPC server with server authentication SSL/TLS.
