@@ -46,6 +46,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
     private int grpcServerPort;
     private String handlerName;
     private int priority;
+    private String certPath;
     private ManagedChannel channel;
     private serviceGrpc.serviceBlockingStub clientStub;
 
@@ -100,12 +101,15 @@ public class GrpcEventHandler extends AbstractEventHandler {
 
     }
 
-    public void init(String handlerName, int priority, String host, int port, File clientCACertFile) {
+    public void init(String handlerName, int priority, String host, int port, String certCaPath) {
 
         this.handlerName = handlerName;
         this.priority = priority;
         this.grpcServerHost = host;
         this.grpcServerPort = port;
+        this.certPath = certCaPath;
+
+        File clientCACertFile = new File(certPath);
 
         // Create the channel for gRPC server with server authentication SSL/TLS.
         try {

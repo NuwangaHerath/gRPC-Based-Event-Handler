@@ -29,7 +29,7 @@ public class GrpcBasedHandlerProperties {
     private int priority;
     private String host;
     private int port;
-    private File certFile;
+    private String certPath;
 
     public GrpcBasedHandlerProperties(String handlerName, String priority, String host, String port, String certPath) {
 
@@ -37,7 +37,7 @@ public class GrpcBasedHandlerProperties {
         this.priority = Integer.parseInt(priority);
         this.host = host;
         this.port = Integer.parseInt(port);
-        this.certFile = new File(certPath);
+        this.certPath = certPath;
 
     }
 
@@ -61,9 +61,9 @@ public class GrpcBasedHandlerProperties {
         return this.port;
     }
 
-    public File getCertFile() {
+    public String getCertPath() {
 
-        return this.certFile;
+        return this.certPath;
     }
 
 }
