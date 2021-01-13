@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @scr.component name="org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent" immediate="true"
@@ -40,28 +41,24 @@ import java.util.List;
 public class GrpcEventHandlerComponent {
 
     private static Log log = LogFactory.getLog(GrpcEventHandlerComponent.class);
-    private String grpcEventHandlerNames;
-    private List<String> handlerNames;
+    private Iterator<Object> grpcEventHandlerNames;
     private List<GrpcBasedHandlerProperties> handlerConfigs = new ArrayList<>();
 
     public void getHandlerNames() {
 
         // Obtain gRPC based handler names from identity-event properties.
         try {
-            this.grpcEventHandlerNames = IdentityEventConfigBuilder.getInstance().getModuleConfigurations
-                    ("multiHandlers").getModuleProperties().getProperty("multiHandlers.handlerNames");
+            this.grpcEventHandlerNames = IdentityEventConfigBuilder.getInstance().getModuleConfigurations("grpcHandler").getModuleProperties().values().iterator();
         } catch (IdentityEventException e) {
             log.info("Identity Event Exception", e);
         }
-        this.handlerNames = Arrays.asList(grpcEventHandlerNames.split(","));
     }
 
     public void populateHandlerConfigs() {
 
         // Obtain gRPC based handler configurations from identity-event properties.
-        Iterator<String> handlerNamesArray = handlerNames.listIterator();
-        while (handlerNamesArray.hasNext()) {
-            String handlerName = handlerNamesArray.next();
+        while (grpcEventHandlerNames.hasNext()) {
+            String handlerName = String.valueOf(grpcEventHandlerNames.next());
             ModuleConfiguration handlerConfiguration = null;
 
             try {
