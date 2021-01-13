@@ -107,7 +107,7 @@ public class GrpcEventHandlerComponent {
             // Register the gRPC based event handlers as an OSGI service.
             context.getBundleContext().registerService(
                     AbstractEventHandler.class.getName(), eventHandler, null);
-            log.debug("gRPC Event Handler is activated successfully.");
+            log.info(grpcBasedHandlerProperties.getHandlerName() + " is activated successfully.");
         }
 
     }
