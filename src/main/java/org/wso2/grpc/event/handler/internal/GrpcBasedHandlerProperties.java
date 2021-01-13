@@ -47,6 +47,7 @@ public class GrpcBasedHandlerProperties {
     }
 
     public int getPriority() {
+
         return this.priority;
     }
 
