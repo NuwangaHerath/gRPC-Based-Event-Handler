@@ -29,7 +29,6 @@ import org.wso2.carbon.identity.event.bean.ModuleConfiguration;
 import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
 import org.wso2.grpc.event.handler.GrpcEventHandler;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -42,12 +41,12 @@ public class GrpcEventHandlerComponent {
 
     private static Log log = LogFactory.getLog(GrpcEventHandlerComponent.class);
     private String grpcEventHandlerNames;
-    private File certFile;
     private List<String> handlerNames;
-    private List<HandlerProperties> handlerConfigs = new ArrayList<>();
+    private List<GrpcBasedHandlerProperties> handlerConfigs = new ArrayList<>();
 
     public void getHandlerNames() {
 
+        // Obtain gRPC based handler names from identity-event properties.
         try {
             this.grpcEventHandlerNames = IdentityEventConfigBuilder.getInstance().getModuleConfigurations
                     ("multiHandlers").getModuleProperties().getProperty("multiHandlers.handlerNames");
@@ -57,12 +56,14 @@ public class GrpcEventHandlerComponent {
         this.handlerNames = Arrays.asList(grpcEventHandlerNames.split(","));
     }
 
-    public void getHandlers() {
+    public void populateHandlerConfigs() {
 
+        // Obtain gRPC based handler configurations from identity-event properties.
         Iterator<String> handlerNamesArray = handlerNames.listIterator();
         while (handlerNamesArray.hasNext()) {
             String handlerName = handlerNamesArray.next();
             ModuleConfiguration handlerConfiguration = null;
+
             try {
                 handlerConfiguration = IdentityEventConfigBuilder.getInstance()
                         .getModuleConfigurations(handlerName);
@@ -71,32 +72,38 @@ public class GrpcEventHandlerComponent {
             }
             String priority = handlerConfiguration.getModuleProperties()
                     .getProperty(handlerName + ".priority");
+
             String host = handlerConfiguration.getModuleProperties().getProperty(handlerName + ".host");
             String port = handlerConfiguration.getModuleProperties().getProperty(handlerName + ".port");
             String certPath = handlerConfiguration.getModuleProperties().getProperty(handlerName + ".certPath");
-            HandlerProperties handlerProperties = new HandlerProperties(handlerName, priority, host, port, certPath);
-            this.handlerConfigs.add(handlerProperties);
+
+            // Add gRPC based handler properties to handlerConfigs.
+            GrpcBasedHandlerProperties grpcBasedHandlerProperties = new GrpcBasedHandlerProperties(handlerName, priority, host, port, certPath);
+            this.handlerConfigs.add(grpcBasedHandlerProperties);
         }
     }
 
     @Activate
     protected void activate(ComponentContext context) {
 
-        // Create multiple event handler instances.
         this.getHandlerNames();
-        this.getHandlers();
+        this.populateHandlerConfigs();
 
-        Iterator<HandlerProperties> handlerConfigsArray = this.handlerConfigs.listIterator();
+        // Create multiple gRPC based  event handler instances.
+        Iterator<GrpcBasedHandlerProperties> handlerConfigsArray = this.handlerConfigs.listIterator();
         while (handlerConfigsArray.hasNext()) {
-            HandlerProperties handlerProperties = handlerConfigsArray.next();
+            GrpcBasedHandlerProperties grpcBasedHandlerProperties = handlerConfigsArray.next();
             GrpcEventHandler eventHandler = new GrpcEventHandler();
-            eventHandler.init(handlerProperties.getHandlerName(), handlerProperties.getPriority(), handlerProperties.getHost(), handlerProperties.getPort()
-                    , handlerProperties.getCertFile());
+            eventHandler.init(grpcBasedHandlerProperties.getHandlerName(),
+                    grpcBasedHandlerProperties.getPriority(),
+                    grpcBasedHandlerProperties.getHost(),
+                    grpcBasedHandlerProperties.getPort()
+                    , grpcBasedHandlerProperties.getCertFile());
 
-            // Register the event handlers as an OSGI service.
+            // Register the gRPC based event handlers as an OSGI service.
             context.getBundleContext().registerService(
                     AbstractEventHandler.class.getName(), eventHandler, null);
-            log.info("gRPC event handler is activated successfully - " + handlerProperties.getHost() + ":" + handlerProperties.getPort());
+            log.info("gRPC event handler is activated successfully - " + grpcBasedHandlerProperties.getHost() + ":" + grpcBasedHandlerProperties.getPort());
         }
 
     }

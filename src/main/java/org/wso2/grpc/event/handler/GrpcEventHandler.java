@@ -82,8 +82,6 @@ public class GrpcEventHandler extends AbstractEventHandler {
     public void handleEvent(Event event) throws IdentityEventException {
 
         Map<String, Object> eventProperties = event.getEventProperties();
-        String userName = (String) eventProperties.get(IdentityEventConstants.EventProperty.USER_NAME);
-        String tenantDomain = (String) eventProperties.get(IdentityEventConstants.EventProperty.TENANT_DOMAIN);
         String eventName = event.getEventName();
 
         // Define event properties for create gRPC event message.
@@ -109,6 +107,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
         this.priority = priority;
         this.grpcServerHost = host;
         this.grpcServerPort = port;
+
         // Create the channel for gRPC server with server authentication SSL/TLS.
         try {
             this.channel = NettyChannelBuilder.forAddress(grpcServerHost, grpcServerPort)

@@ -20,7 +20,10 @@ package org.wso2.grpc.event.handler.internal;
 
 import java.io.File;
 
-public class HandlerProperties {
+/**
+ * GrpcEventHandlerProperties contains gRPC based event handler properties.
+ */
+public class GrpcBasedHandlerProperties {
 
     private String handlerName;
     private int priority;
@@ -28,7 +31,7 @@ public class HandlerProperties {
     private int port;
     private File certFile;
 
-    public HandlerProperties(String handlerName, String priority, String host, String port, String certPath) {
+    public GrpcBasedHandlerProperties(String handlerName, String priority, String host, String port, String certPath) {
 
         this.handlerName = handlerName;
         this.priority = Integer.parseInt(priority);
