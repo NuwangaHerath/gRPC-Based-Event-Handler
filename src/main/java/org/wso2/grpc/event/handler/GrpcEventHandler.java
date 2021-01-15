@@ -33,7 +33,6 @@ import org.wso2.grpc.event.handler.grpc.serviceGrpc;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import javax.net.ssl.SSLException;
 
 /**
@@ -51,31 +50,15 @@ public class GrpcEventHandler extends AbstractEventHandler {
     private serviceGrpc.serviceBlockingStub clientStub;
 
     @Override
-    public Properties getSubscriptionProperties(String eventName) throws IdentityEventException {
-
-        log.info("test SubscriptionProperties : " + eventName);
-
-        return super.getSubscriptionProperties(eventName);
-    }
-
-    @Override
-    public String getSubscriptionProperty(String propertyName, String eventName) throws IdentityEventException {
-
-        log.info("test getSubscriptionProperty : " + propertyName + ":" + eventName);
-        return super.getSubscriptionProperty(propertyName, eventName);
-
-    }
-
-    @Override
     public String getName() {
 
-        return this.handlerName;
+        return handlerName;
     }
 
     @Override
     public int getPriority(MessageContext messageContext) {
 
-        return this.priority;
+        return priority;
     }
 
     @Override
@@ -97,10 +80,11 @@ public class GrpcEventHandler extends AbstractEventHandler {
 
         // Obtain log message from remote gRPC server.
         Service.Log remoteLog = clientStub.handleEvent(event1);
+        // TODO: 2021-01-15 could be removed 
         log.info(remoteLog.getLog());
-
     }
 
+    // TODO: 2021-01-15 javadoc comment 
     public void init(String handlerName, int priority, String host, int port, String certCaPath) {
 
         this.handlerName = handlerName;
@@ -117,11 +101,10 @@ public class GrpcEventHandler extends AbstractEventHandler {
                     .sslContext(GrpcSslContexts.forClient().trustManager(clientCACertFile).build())
                     .build();
         } catch (SSLException e) {
-            log.info("SSLException: ", e);
+            log.error("Error occurred while verifying the SSL certificate : ", e);
         }
 
         // Create the gRPC client stub.
         this.clientStub = serviceGrpc.newBlockingStub(channel);
-
     }
 }

@@ -30,10 +30,8 @@ import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
 import org.wso2.grpc.event.handler.GrpcEventHandler;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @scr.component name="org.wso2.grpc.event.handler.internal.GrpcEventHandlerComponent" immediate="true"
@@ -44,13 +42,17 @@ public class GrpcEventHandlerComponent {
     private Iterator<Object> grpcEventHandlerNames;
     private List<GrpcBasedHandlerProperties> handlerConfigs = new ArrayList<>();
 
-    public void getHandlerNames() {
+    public void populateHandlerNames() {
 
         // Obtain gRPC based handler names from identity-event properties.
         try {
-            this.grpcEventHandlerNames = IdentityEventConfigBuilder.getInstance().getModuleConfigurations("grpcHandler").getModuleProperties().values().iterator();
+            this.grpcEventHandlerNames = IdentityEventConfigBuilder.getInstance()
+                    .getModuleConfigurations("grpcHandler").getModuleProperties().values().iterator();
+            if (log.isDebugEnabled()) {
+                log.debug("gRPC Handler names : " + grpcEventHandlerNames.toString());
+            }
         } catch (IdentityEventException e) {
-            log.info("Identity Event Exception", e);
+            log.error("Error occurred while reading Identity Event properties for gRPC handler names.", e);
         }
     }
 
@@ -65,7 +67,7 @@ public class GrpcEventHandlerComponent {
                 handlerConfiguration = IdentityEventConfigBuilder.getInstance()
                         .getModuleConfigurations(handlerName);
             } catch (IdentityEventException e) {
-                log.info("Identity Event Exception", e);
+                log.error("Error occurred while reading Identity Event properties for gRPC handler configurations.", e);
             }
             String priority = handlerConfiguration.getModuleProperties()
                     .getProperty(handlerName + ".priority");
@@ -87,7 +89,7 @@ public class GrpcEventHandlerComponent {
     @Activate
     protected void activate(ComponentContext context) {
 
-        this.getHandlerNames();
+        this.populateHandlerNames();
         this.populateHandlerConfigs();
 
         // Create multiple gRPC based  event handler instances.
