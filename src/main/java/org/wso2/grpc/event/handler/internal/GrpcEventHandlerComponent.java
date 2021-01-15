@@ -49,7 +49,11 @@ public class GrpcEventHandlerComponent {
             this.grpcEventHandlerNames = IdentityEventConfigBuilder.getInstance()
                     .getModuleConfigurations("grpcHandler").getModuleProperties().values().iterator();
             if (log.isDebugEnabled()) {
-                log.debug("gRPC Handler names : " + grpcEventHandlerNames.toString());
+                StringBuilder stringBuilder = new StringBuilder();
+                while (grpcEventHandlerNames.hasNext()) {
+                    stringBuilder.append(grpcEventHandlerNames.next() + "|");
+                }
+                log.debug("gRPC Handler names : " + stringBuilder.toString());
             }
         } catch (IdentityEventException e) {
             log.error("Error occurred while reading Identity Event properties for gRPC handler names.", e);
@@ -67,11 +71,11 @@ public class GrpcEventHandlerComponent {
                 handlerConfiguration = IdentityEventConfigBuilder.getInstance()
                         .getModuleConfigurations(handlerName);
             } catch (IdentityEventException e) {
-                log.error("Error occurred while reading Identity Event properties for gRPC handler configurations.", e);
+                log.error("Error occurred while reading Identity Event properties for gRPC handler configurations."
+                        , e);
             }
             String priority = handlerConfiguration.getModuleProperties()
                     .getProperty(handlerName + ".priority");
-
             String host = handlerConfiguration.getModuleProperties().getProperty(handlerName + ".host");
             String port = handlerConfiguration.getModuleProperties().getProperty(handlerName + ".port");
             String certPath = handlerConfiguration.getModuleProperties().getProperty(handlerName + ".certPath");

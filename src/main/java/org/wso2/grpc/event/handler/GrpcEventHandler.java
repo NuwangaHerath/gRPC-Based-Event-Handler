@@ -84,7 +84,9 @@ public class GrpcEventHandler extends AbstractEventHandler {
         log.info(remoteLog.getLog());
     }
 
-    // TODO: 2021-01-15 javadoc comment 
+    /**
+     * init method initialize the handler's configurations.
+     */
     public void init(String handlerName, int priority, String host, int port, String certCaPath) {
 
         this.handlerName = handlerName;
@@ -93,6 +95,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
         this.grpcServerPort = port;
         this.certPath = certCaPath;
 
+        // Obtains the certificate file.
         File clientCACertFile = new File(certPath);
 
         // Create the channel for gRPC server with server authentication SSL/TLS.

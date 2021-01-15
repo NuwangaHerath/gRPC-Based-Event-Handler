@@ -18,10 +18,8 @@
 
 package org.wso2.grpc.event.handler.internal;
 
-import java.io.File;
-
 /**
- * GrpcEventHandlerProperties contains gRPC based event handler properties.
+ * GrpcEventHandlerProperties contains gRPC based event handler properties and getters.
  */
 public class GrpcBasedHandlerProperties {
 
