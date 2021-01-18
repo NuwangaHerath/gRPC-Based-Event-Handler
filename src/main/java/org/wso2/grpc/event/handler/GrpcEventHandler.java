@@ -87,13 +87,13 @@ public class GrpcEventHandler extends AbstractEventHandler {
     /**
      * init method initialize the handler's configurations.
      */
-    public void init(String handlerName, int priority, String host, int port, String certCaPath) {
+    public void init(String handlerName, int priority, String host, int port, String certPath) {
 
         this.handlerName = handlerName;
         this.priority = priority;
         this.grpcServerHost = host;
         this.grpcServerPort = port;
-        this.certPath = certCaPath;
+        this.certPath = certPath;
 
         // Obtains the certificate file.
         File clientCACertFile = new File(certPath);
