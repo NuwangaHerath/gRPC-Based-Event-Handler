@@ -96,7 +96,7 @@ public class GrpcEventHandlerComponent {
         this.populateHandlerNames();
         this.populateHandlerConfigs();
 
-        // Create multiple gRPC based  event handler instances.
+        // Create multiple gRPC based event handler instances.
         Iterator<GrpcBasedHandlerProperties> handlerConfigsArray = this.handlerConfigs.listIterator();
         while (handlerConfigsArray.hasNext()) {
             GrpcBasedHandlerProperties grpcBasedHandlerProperties = handlerConfigsArray.next();
