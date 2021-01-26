@@ -106,6 +106,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
         } catch (SSLException e) {
             log.error("Error occurred while verifying the SSL certificate : ", e);
         }
+//        this.channel = NettyChannelBuilder.forAddress(grpcServerHost, grpcServerPort).build();
 
         // Create the gRPC client stub.
         this.clientStub = serviceGrpc.newBlockingStub(channel);
