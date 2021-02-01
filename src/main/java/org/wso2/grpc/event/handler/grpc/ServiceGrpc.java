@@ -12,9 +12,9 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.15.0)",
     comments = "Source: service.proto")
-public final class serviceGrpc {
+public final class ServiceGrpc {
 
-  private serviceGrpc() {}
+  private ServiceGrpc() {}
 
   public static final String SERVICE_NAME = "service";
 
@@ -30,10 +30,10 @@ public final class serviceGrpc {
   public static io.grpc.MethodDescriptor<org.wso2.grpc.event.handler.grpc.Service.Event,
       org.wso2.grpc.event.handler.grpc.Service.Log> getHandleEventMethod() {
     io.grpc.MethodDescriptor<org.wso2.grpc.event.handler.grpc.Service.Event, org.wso2.grpc.event.handler.grpc.Service.Log> getHandleEventMethod;
-    if ((getHandleEventMethod = serviceGrpc.getHandleEventMethod) == null) {
-      synchronized (serviceGrpc.class) {
-        if ((getHandleEventMethod = serviceGrpc.getHandleEventMethod) == null) {
-          serviceGrpc.getHandleEventMethod = getHandleEventMethod = 
+    if ((getHandleEventMethod = ServiceGrpc.getHandleEventMethod) == null) {
+      synchronized (ServiceGrpc.class) {
+        if ((getHandleEventMethod = ServiceGrpc.getHandleEventMethod) == null) {
+          ServiceGrpc.getHandleEventMethod = getHandleEventMethod =
               io.grpc.MethodDescriptor.<org.wso2.grpc.event.handler.grpc.Service.Event, org.wso2.grpc.event.handler.grpc.Service.Log>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
@@ -257,7 +257,7 @@ public final class serviceGrpc {
   public static io.grpc.ServiceDescriptor getServiceDescriptor() {
     io.grpc.ServiceDescriptor result = serviceDescriptor;
     if (result == null) {
-      synchronized (serviceGrpc.class) {
+      synchronized (ServiceGrpc.class) {
         result = serviceDescriptor;
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)

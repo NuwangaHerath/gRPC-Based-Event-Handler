@@ -4,1779 +4,1491 @@
 package org.wso2.grpc.event.handler.grpc;
 
 public final class Service {
+  private Service() {}
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistryLite registry) {
+  }
 
-    private Service() {
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
+  public interface EventOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Event)
+      com.google.protobuf.MessageOrBuilder {
 
-    }
-
-    public static void registerAllExtensions(
-            com.google.protobuf.ExtensionRegistryLite registry) {
-
-    }
-
-    public static void registerAllExtensions(
-            com.google.protobuf.ExtensionRegistry registry) {
-
-        registerAllExtensions(
-                (com.google.protobuf.ExtensionRegistryLite) registry);
-    }
-
-    public interface EventOrBuilder extends
-            // @@protoc_insertion_point(interface_extends:Event)
-            com.google.protobuf.MessageOrBuilder {
-
-        /**
-         * <code>string event = 1;</code>
-         */
-        java.lang.String getEvent();
-
-        /**
-         * <code>string event = 1;</code>
-         */
-        com.google.protobuf.ByteString
+    /**
+     * <code>string event = 1;</code>
+     */
+    java.lang.String getEvent();
+    /**
+     * <code>string event = 1;</code>
+     */
+    com.google.protobuf.ByteString
         getEventBytes();
 
-        /**
-         * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-         */
-        int getEventPropertiesCount();
+    /**
+     * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+     */
+    int getEventPropertiesCount();
+    /**
+     * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+     */
+    boolean containsEventProperties(
+        java.lang.String key);
+    /**
+     * Use {@link #getEventPropertiesMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, java.lang.String>
+    getEventProperties();
+    /**
+     * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+     */
+    java.util.Map<java.lang.String, java.lang.String>
+    getEventPropertiesMap();
+    /**
+     * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+     */
 
-        /**
-         * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-         */
-        boolean containsEventProperties(
-                java.lang.String key);
+    java.lang.String getEventPropertiesOrDefault(
+        java.lang.String key,
+        java.lang.String defaultValue);
+    /**
+     * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+     */
 
-        /**
-         * Use {@link #getEventPropertiesMap()} instead.
-         */
-        @java.lang.Deprecated
-        java.util.Map<java.lang.String, java.lang.String>
-        getEventProperties();
-
-        /**
-         * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-         */
-        java.util.Map<java.lang.String, java.lang.String>
-        getEventPropertiesMap();
-
-        /**
-         * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-         */
-
-        java.lang.String getEventPropertiesOrDefault(
-                java.lang.String key,
-                java.lang.String defaultValue);
-
-        /**
-         * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-         */
-
-        java.lang.String getEventPropertiesOrThrow(
-                java.lang.String key);
+    java.lang.String getEventPropertiesOrThrow(
+        java.lang.String key);
+  }
+  /**
+   * Protobuf type {@code Event}
+   */
+  public  static final class Event extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:Event)
+      EventOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Event.newBuilder() to construct.
+    private Event(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Event() {
+      event_ = "";
     }
 
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Event(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              event_ = s;
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                eventProperties_ = com.google.protobuf.MapField.newMapField(
+                    EventPropertiesDefaultEntryHolder.defaultEntry);
+                mutable_bitField0_ |= 0x00000002;
+              }
+              com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+              eventProperties__ = input.readMessage(
+                  EventPropertiesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              eventProperties_.getMutableMap().put(
+                  eventProperties__.getKey(), eventProperties__.getValue());
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return org.wso2.grpc.event.handler.grpc.Service.internal_static_Event_descriptor;
+    }
+
+    @SuppressWarnings({"rawtypes"})
+    @java.lang.Override
+    protected com.google.protobuf.MapField internalGetMapField(
+        int number) {
+      switch (number) {
+        case 3:
+          return internalGetEventProperties();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return org.wso2.grpc.event.handler.grpc.Service.internal_static_Event_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.wso2.grpc.event.handler.grpc.Service.Event.class, org.wso2.grpc.event.handler.grpc.Service.Event.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int EVENT_FIELD_NUMBER = 1;
+    private volatile java.lang.Object event_;
+    /**
+     * <code>string event = 1;</code>
+     */
+    public java.lang.String getEvent() {
+      java.lang.Object ref = event_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        event_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string event = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getEventBytes() {
+      java.lang.Object ref = event_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        event_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EVENTPROPERTIES_FIELD_NUMBER = 3;
+    private static final class EventPropertiesDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, java.lang.String> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, java.lang.String>newDefaultInstance(
+                  org.wso2.grpc.event.handler.grpc.Service.internal_static_Event_EventPropertiesEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "");
+    }
+    private com.google.protobuf.MapField<
+        java.lang.String, java.lang.String> eventProperties_;
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+    internalGetEventProperties() {
+      if (eventProperties_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            EventPropertiesDefaultEntryHolder.defaultEntry);
+      }
+      return eventProperties_;
+    }
+
+    public int getEventPropertiesCount() {
+      return internalGetEventProperties().getMap().size();
+    }
+    /**
+     * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+     */
+
+    public boolean containsEventProperties(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      return internalGetEventProperties().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getEventPropertiesMap()} instead.
+     */
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String> getEventProperties() {
+      return getEventPropertiesMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+     */
+
+    public java.util.Map<java.lang.String, java.lang.String> getEventPropertiesMap() {
+      return internalGetEventProperties().getMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+     */
+
+    public java.lang.String getEventPropertiesOrDefault(
+        java.lang.String key,
+        java.lang.String defaultValue) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetEventProperties().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+     */
+
+    public java.lang.String getEventPropertiesOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetEventProperties().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getEventBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, event_);
+      }
+      com.google.protobuf.GeneratedMessageV3
+        .serializeStringMapTo(
+          output,
+          internalGetEventProperties(),
+          EventPropertiesDefaultEntryHolder.defaultEntry,
+          3);
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getEventBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, event_);
+      }
+      for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
+           : internalGetEventProperties().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+        eventProperties__ = EventPropertiesDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(3, eventProperties__);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof org.wso2.grpc.event.handler.grpc.Service.Event)) {
+        return super.equals(obj);
+      }
+      org.wso2.grpc.event.handler.grpc.Service.Event other = (org.wso2.grpc.event.handler.grpc.Service.Event) obj;
+
+      boolean result = true;
+      result = result && getEvent()
+          .equals(other.getEvent());
+      result = result && internalGetEventProperties().equals(
+          other.internalGetEventProperties());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + EVENT_FIELD_NUMBER;
+      hash = (53 * hash) + getEvent().hashCode();
+      if (!internalGetEventProperties().getMap().isEmpty()) {
+        hash = (37 * hash) + EVENTPROPERTIES_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetEventProperties().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Event parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Event parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(org.wso2.grpc.event.handler.grpc.Service.Event prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code Event}
      */
-    public static final class Event extends
-            com.google.protobuf.GeneratedMessageV3 implements
-            // @@protoc_insertion_point(message_implements:Event)
-            EventOrBuilder {
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Event)
+        org.wso2.grpc.event.handler.grpc.Service.EventOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.wso2.grpc.event.handler.grpc.Service.internal_static_Event_descriptor;
+      }
 
-        private static final long serialVersionUID = 0L;
-
-        // Use Event.newBuilder() to construct.
-        private Event(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-
-            super(builder);
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMapField(
+          int number) {
+        switch (number) {
+          case 3:
+            return internalGetEventProperties();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
         }
-
-        private Event() {
-
-            event_ = "";
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMutableMapField(
+          int number) {
+        switch (number) {
+          case 3:
+            return internalGetMutableEventProperties();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
         }
+      }
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.wso2.grpc.event.handler.grpc.Service.internal_static_Event_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.wso2.grpc.event.handler.grpc.Service.Event.class, org.wso2.grpc.event.handler.grpc.Service.Event.Builder.class);
+      }
 
-        @java.lang.Override
-        public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+      // Construct using org.wso2.grpc.event.handler.grpc.Service.Event.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
 
-            return this.unknownFields;
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        event_ = "";
 
-        private Event(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
+        internalGetMutableEventProperties().clear();
+        return this;
+      }
 
-            this();
-            if (extensionRegistry == null) {
-                throw new java.lang.NullPointerException();
-            }
-            int mutable_bitField0_ = 0;
-            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-                    com.google.protobuf.UnknownFieldSet.newBuilder();
-            try {
-                boolean done = false;
-                while (!done) {
-                    int tag = input.readTag();
-                    switch (tag) {
-                        case 0:
-                            done = true;
-                            break;
-                        case 10: {
-                            java.lang.String s = input.readStringRequireUtf8();
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return org.wso2.grpc.event.handler.grpc.Service.internal_static_Event_descriptor;
+      }
 
-                            event_ = s;
-                            break;
-                        }
-                        case 26: {
-                            if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-                                eventProperties_ = com.google.protobuf.MapField.newMapField(
-                                        EventPropertiesDefaultEntryHolder.defaultEntry);
-                                mutable_bitField0_ |= 0x00000002;
-                            }
-                            com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
-                                    eventProperties__ = input.readMessage(
-                                    EventPropertiesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
-                            eventProperties_.getMutableMap().put(
-                                    eventProperties__.getKey(), eventProperties__.getValue());
-                            break;
-                        }
-                        default: {
-                            if (!parseUnknownFieldProto3(
-                                    input, unknownFields, extensionRegistry, tag)) {
-                                done = true;
-                            }
-                            break;
-                        }
-                    }
-                }
-            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                throw e.setUnfinishedMessage(this);
-            } catch (java.io.IOException e) {
-                throw new com.google.protobuf.InvalidProtocolBufferException(
-                        e).setUnfinishedMessage(this);
-            } finally {
-                this.unknownFields = unknownFields.build();
-                makeExtensionsImmutable();
-            }
+      @java.lang.Override
+      public org.wso2.grpc.event.handler.grpc.Service.Event getDefaultInstanceForType() {
+        return org.wso2.grpc.event.handler.grpc.Service.Event.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public org.wso2.grpc.event.handler.grpc.Service.Event build() {
+        org.wso2.grpc.event.handler.grpc.Service.Event result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
         }
+        return result;
+      }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
+      @java.lang.Override
+      public org.wso2.grpc.event.handler.grpc.Service.Event buildPartial() {
+        org.wso2.grpc.event.handler.grpc.Service.Event result = new org.wso2.grpc.event.handler.grpc.Service.Event(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        result.event_ = event_;
+        result.eventProperties_ = internalGetEventProperties();
+        result.eventProperties_.makeImmutable();
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
 
-            return org.wso2.grpc.event.handler.grpc.Service.internal_static_Event_descriptor;
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof org.wso2.grpc.event.handler.grpc.Service.Event) {
+          return mergeFrom((org.wso2.grpc.event.handler.grpc.Service.Event)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
         }
+      }
 
-        @SuppressWarnings({"rawtypes"})
-        @java.lang.Override
-        protected com.google.protobuf.MapField internalGetMapField(
-                int number) {
-
-            switch (number) {
-                case 3:
-                    return internalGetEventProperties();
-                default:
-                    throw new RuntimeException(
-                            "Invalid map field number: " + number);
-            }
+      public Builder mergeFrom(org.wso2.grpc.event.handler.grpc.Service.Event other) {
+        if (other == org.wso2.grpc.event.handler.grpc.Service.Event.getDefaultInstance()) return this;
+        if (!other.getEvent().isEmpty()) {
+          event_ = other.event_;
+          onChanged();
         }
+        internalGetMutableEventProperties().mergeFrom(
+            other.internalGetEventProperties());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
 
-        @java.lang.Override
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
 
-            return org.wso2.grpc.event.handler.grpc.Service.internal_static_Event_fieldAccessorTable
-                    .ensureFieldAccessorsInitialized(
-                            org.wso2.grpc.event.handler.grpc.Service.Event.class, org.wso2.grpc.event.handler.grpc.Service.Event.Builder.class);
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        org.wso2.grpc.event.handler.grpc.Service.Event parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.wso2.grpc.event.handler.grpc.Service.Event) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
         }
+        return this;
+      }
+      private int bitField0_;
 
-        private int bitField0_;
-        public static final int EVENT_FIELD_NUMBER = 1;
-        private volatile java.lang.Object event_;
-
-        /**
-         * <code>string event = 1;</code>
-         */
-        public java.lang.String getEvent() {
-
-            java.lang.Object ref = event_;
-            if (ref instanceof java.lang.String) {
-                return (java.lang.String) ref;
-            } else {
-                com.google.protobuf.ByteString bs =
-                        (com.google.protobuf.ByteString) ref;
-                java.lang.String s = bs.toStringUtf8();
-                event_ = s;
-                return s;
-            }
+      private java.lang.Object event_ = "";
+      /**
+       * <code>string event = 1;</code>
+       */
+      public java.lang.String getEvent() {
+        java.lang.Object ref = event_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          event_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
         }
-
-        /**
-         * <code>string event = 1;</code>
-         */
-        public com.google.protobuf.ByteString
-        getEventBytes() {
-
-            java.lang.Object ref = event_;
-            if (ref instanceof java.lang.String) {
-                com.google.protobuf.ByteString b =
-                        com.google.protobuf.ByteString.copyFromUtf8(
-                                (java.lang.String) ref);
-                event_ = b;
-                return b;
-            } else {
-                return (com.google.protobuf.ByteString) ref;
-            }
+      }
+      /**
+       * <code>string event = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getEventBytes() {
+        java.lang.Object ref = event_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          event_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
         }
+      }
+      /**
+       * <code>string event = 1;</code>
+       */
+      public Builder setEvent(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        event_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string event = 1;</code>
+       */
+      public Builder clearEvent() {
+        
+        event_ = getDefaultInstance().getEvent();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string event = 1;</code>
+       */
+      public Builder setEventBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        event_ = value;
+        onChanged();
+        return this;
+      }
 
-        public static final int EVENTPROPERTIES_FIELD_NUMBER = 3;
-
-        private static final class EventPropertiesDefaultEntryHolder {
-
-            static final com.google.protobuf.MapEntry<
-                    java.lang.String, java.lang.String> defaultEntry =
-                    com.google.protobuf.MapEntry
-                            .<java.lang.String, java.lang.String>newDefaultInstance(
-                                    org.wso2.grpc.event.handler.grpc.Service.internal_static_Event_EventPropertiesEntry_descriptor,
-                                    com.google.protobuf.WireFormat.FieldType.STRING,
-                                    "",
-                                    com.google.protobuf.WireFormat.FieldType.STRING,
-                                    "");
+      private com.google.protobuf.MapField<
+          java.lang.String, java.lang.String> eventProperties_;
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+      internalGetEventProperties() {
+        if (eventProperties_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              EventPropertiesDefaultEntryHolder.defaultEntry);
         }
-
-        private com.google.protobuf.MapField<
-                java.lang.String, java.lang.String> eventProperties_;
-
-        private com.google.protobuf.MapField<java.lang.String, java.lang.String>
-        internalGetEventProperties() {
-
-            if (eventProperties_ == null) {
-                return com.google.protobuf.MapField.emptyMapField(
-                        EventPropertiesDefaultEntryHolder.defaultEntry);
-            }
-            return eventProperties_;
+        return eventProperties_;
+      }
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+      internalGetMutableEventProperties() {
+        onChanged();;
+        if (eventProperties_ == null) {
+          eventProperties_ = com.google.protobuf.MapField.newMapField(
+              EventPropertiesDefaultEntryHolder.defaultEntry);
         }
-
-        public int getEventPropertiesCount() {
-
-            return internalGetEventProperties().getMap().size();
+        if (!eventProperties_.isMutable()) {
+          eventProperties_ = eventProperties_.copy();
         }
+        return eventProperties_;
+      }
 
-        /**
-         * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-         */
+      public int getEventPropertiesCount() {
+        return internalGetEventProperties().getMap().size();
+      }
+      /**
+       * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+       */
 
-        public boolean containsEventProperties(
-                java.lang.String key) {
+      public boolean containsEventProperties(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        return internalGetEventProperties().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getEventPropertiesMap()} instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String> getEventProperties() {
+        return getEventPropertiesMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+       */
 
-            if (key == null) {
-                throw new java.lang.NullPointerException();
-            }
-            return internalGetEventProperties().getMap().containsKey(key);
+      public java.util.Map<java.lang.String, java.lang.String> getEventPropertiesMap() {
+        return internalGetEventProperties().getMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+       */
+
+      public java.lang.String getEventPropertiesOrDefault(
+          java.lang.String key,
+          java.lang.String defaultValue) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetEventProperties().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+       */
+
+      public java.lang.String getEventPropertiesOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetEventProperties().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
         }
-
-        /**
-         * Use {@link #getEventPropertiesMap()} instead.
-         */
-        @java.lang.Deprecated
-        public java.util.Map<java.lang.String, java.lang.String> getEventProperties() {
-
-            return getEventPropertiesMap();
-        }
-
-        /**
-         * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-         */
-
-        public java.util.Map<java.lang.String, java.lang.String> getEventPropertiesMap() {
-
-            return internalGetEventProperties().getMap();
-        }
-
-        /**
-         * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-         */
-
-        public java.lang.String getEventPropertiesOrDefault(
-                java.lang.String key,
-                java.lang.String defaultValue) {
-
-            if (key == null) {
-                throw new java.lang.NullPointerException();
-            }
-            java.util.Map<java.lang.String, java.lang.String> map =
-                    internalGetEventProperties().getMap();
-            return map.containsKey(key) ? map.get(key) : defaultValue;
-        }
-
-        /**
-         * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-         */
-
-        public java.lang.String getEventPropertiesOrThrow(
-                java.lang.String key) {
-
-            if (key == null) {
-                throw new java.lang.NullPointerException();
-            }
-            java.util.Map<java.lang.String, java.lang.String> map =
-                    internalGetEventProperties().getMap();
-            if (!map.containsKey(key)) {
-                throw new java.lang.IllegalArgumentException();
-            }
-            return map.get(key);
-        }
-
-        private byte memoizedIsInitialized = -1;
-
-        @java.lang.Override
-        public final boolean isInitialized() {
-
-            byte isInitialized = memoizedIsInitialized;
-            if (isInitialized == 1) return true;
-            if (isInitialized == 0) return false;
-
-            memoizedIsInitialized = 1;
-            return true;
-        }
-
-        @java.lang.Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
-                throws java.io.IOException {
-
-            if (!getEventBytes().isEmpty()) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 1, event_);
-            }
-            com.google.protobuf.GeneratedMessageV3
-                    .serializeStringMapTo(
-                            output,
-                            internalGetEventProperties(),
-                            EventPropertiesDefaultEntryHolder.defaultEntry,
-                            3);
-            unknownFields.writeTo(output);
-        }
-
-        @java.lang.Override
-        public int getSerializedSize() {
-
-            int size = memoizedSize;
-            if (size != -1) return size;
-
-            size = 0;
-            if (!getEventBytes().isEmpty()) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, event_);
-            }
-            for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
-                    : internalGetEventProperties().getMap().entrySet()) {
-                com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
-                        eventProperties__ = EventPropertiesDefaultEntryHolder.defaultEntry.newBuilderForType()
-                        .setKey(entry.getKey())
-                        .setValue(entry.getValue())
-                        .build();
-                size += com.google.protobuf.CodedOutputStream
-                        .computeMessageSize(3, eventProperties__);
-            }
-            size += unknownFields.getSerializedSize();
-            memoizedSize = size;
-            return size;
-        }
-
-        @java.lang.Override
-        public boolean equals(final java.lang.Object obj) {
-
-            if (obj == this) {
-                return true;
-            }
-            if (!(obj instanceof org.wso2.grpc.event.handler.grpc.Service.Event)) {
-                return super.equals(obj);
-            }
-            org.wso2.grpc.event.handler.grpc.Service.Event other = (org.wso2.grpc.event.handler.grpc.Service.Event) obj;
-
-            boolean result = true;
-            result = result && getEvent()
-                    .equals(other.getEvent());
-            result = result && internalGetEventProperties().equals(
-                    other.internalGetEventProperties());
-            result = result && unknownFields.equals(other.unknownFields);
-            return result;
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-
-            if (memoizedHashCode != 0) {
-                return memoizedHashCode;
-            }
-            int hash = 41;
-            hash = (19 * hash) + getDescriptor().hashCode();
-            hash = (37 * hash) + EVENT_FIELD_NUMBER;
-            hash = (53 * hash) + getEvent().hashCode();
-            if (!internalGetEventProperties().getMap().isEmpty()) {
-                hash = (37 * hash) + EVENTPROPERTIES_FIELD_NUMBER;
-                hash = (53 * hash) + internalGetEventProperties().hashCode();
-            }
-            hash = (29 * hash) + unknownFields.hashCode();
-            memoizedHashCode = hash;
-            return hash;
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
-                java.nio.ByteBuffer data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-
-            return PARSER.parseFrom(data);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
-                java.nio.ByteBuffer data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
-                com.google.protobuf.ByteString data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-
-            return PARSER.parseFrom(data);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
-                com.google.protobuf.ByteString data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(byte[] data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-
-            return PARSER.parseFrom(data);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
-                byte[] data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(java.io.InputStream input)
-                throws java.io.IOException {
-
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
-                java.io.InputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Event parseDelimitedFrom(java.io.InputStream input)
-                throws java.io.IOException {
-
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseDelimitedWithIOException(PARSER, input);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Event parseDelimitedFrom(
-                java.io.InputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
-                com.google.protobuf.CodedInputStream input)
-                throws java.io.IOException {
-
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Event parseFrom(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        @java.lang.Override
-        public Builder newBuilderForType() {
-
-            return newBuilder();
-        }
-
-        public static Builder newBuilder() {
-
-            return DEFAULT_INSTANCE.toBuilder();
-        }
-
-        public static Builder newBuilder(org.wso2.grpc.event.handler.grpc.Service.Event prototype) {
-
-            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-        }
-
-        @java.lang.Override
-        public Builder toBuilder() {
-
-            return this == DEFAULT_INSTANCE
-                    ? new Builder() : new Builder().mergeFrom(this);
-        }
-
-        @java.lang.Override
-        protected Builder newBuilderForType(
-                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-
-            Builder builder = new Builder(parent);
-            return builder;
-        }
-
-        /**
-         * Protobuf type {@code Event}
-         */
-        public static final class Builder extends
-                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-                // @@protoc_insertion_point(builder_implements:Event)
-                org.wso2.grpc.event.handler.grpc.Service.EventOrBuilder {
-
-            public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-
-                return org.wso2.grpc.event.handler.grpc.Service.internal_static_Event_descriptor;
-            }
-
-            @SuppressWarnings({"rawtypes"})
-            protected com.google.protobuf.MapField internalGetMapField(
-                    int number) {
-
-                switch (number) {
-                    case 3:
-                        return internalGetEventProperties();
-                    default:
-                        throw new RuntimeException(
-                                "Invalid map field number: " + number);
-                }
-            }
-
-            @SuppressWarnings({"rawtypes"})
-            protected com.google.protobuf.MapField internalGetMutableMapField(
-                    int number) {
-
-                switch (number) {
-                    case 3:
-                        return internalGetMutableEventProperties();
-                    default:
-                        throw new RuntimeException(
-                                "Invalid map field number: " + number);
-                }
-            }
-
-            @java.lang.Override
-            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-
-                return org.wso2.grpc.event.handler.grpc.Service.internal_static_Event_fieldAccessorTable
-                        .ensureFieldAccessorsInitialized(
-                                org.wso2.grpc.event.handler.grpc.Service.Event.class, org.wso2.grpc.event.handler.grpc.Service.Event.Builder.class);
-            }
-
-            // Construct using org.wso2.grpc.event.handler.grpc.Service.Event.newBuilder()
-            private Builder() {
-
-                maybeForceBuilderInitialization();
-            }
-
-            private Builder(
-                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-
-                super(parent);
-                maybeForceBuilderInitialization();
-            }
-
-            private void maybeForceBuilderInitialization() {
-
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                }
-            }
-
-            @java.lang.Override
-            public Builder clear() {
-
-                super.clear();
-                event_ = "";
-
-                internalGetMutableEventProperties().clear();
-                return this;
-            }
-
-            @java.lang.Override
-            public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-
-                return org.wso2.grpc.event.handler.grpc.Service.internal_static_Event_descriptor;
-            }
-
-            @java.lang.Override
-            public org.wso2.grpc.event.handler.grpc.Service.Event getDefaultInstanceForType() {
-
-                return org.wso2.grpc.event.handler.grpc.Service.Event.getDefaultInstance();
-            }
-
-            @java.lang.Override
-            public org.wso2.grpc.event.handler.grpc.Service.Event build() {
-
-                org.wso2.grpc.event.handler.grpc.Service.Event result = buildPartial();
-                if (!result.isInitialized()) {
-                    throw newUninitializedMessageException(result);
-                }
-                return result;
-            }
-
-            @java.lang.Override
-            public org.wso2.grpc.event.handler.grpc.Service.Event buildPartial() {
-
-                org.wso2.grpc.event.handler.grpc.Service.Event result = new org.wso2.grpc.event.handler.grpc.Service.Event(this);
-                int from_bitField0_ = bitField0_;
-                int to_bitField0_ = 0;
-                result.event_ = event_;
-                result.eventProperties_ = internalGetEventProperties();
-                result.eventProperties_.makeImmutable();
-                result.bitField0_ = to_bitField0_;
-                onBuilt();
-                return result;
-            }
-
-            @java.lang.Override
-            public Builder clone() {
-
-                return (Builder) super.clone();
-            }
-
-            @java.lang.Override
-            public Builder setField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    java.lang.Object value) {
-
-                return (Builder) super.setField(field, value);
-            }
-
-            @java.lang.Override
-            public Builder clearField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field) {
-
-                return (Builder) super.clearField(field);
-            }
-
-            @java.lang.Override
-            public Builder clearOneof(
-                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-
-                return (Builder) super.clearOneof(oneof);
-            }
-
-            @java.lang.Override
-            public Builder setRepeatedField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    int index, java.lang.Object value) {
-
-                return (Builder) super.setRepeatedField(field, index, value);
-            }
-
-            @java.lang.Override
-            public Builder addRepeatedField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    java.lang.Object value) {
-
-                return (Builder) super.addRepeatedField(field, value);
-            }
-
-            @java.lang.Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
-
-                if (other instanceof org.wso2.grpc.event.handler.grpc.Service.Event) {
-                    return mergeFrom((org.wso2.grpc.event.handler.grpc.Service.Event) other);
-                } else {
-                    super.mergeFrom(other);
-                    return this;
-                }
-            }
-
-            public Builder mergeFrom(org.wso2.grpc.event.handler.grpc.Service.Event other) {
-
-                if (other == org.wso2.grpc.event.handler.grpc.Service.Event.getDefaultInstance()) return this;
-                if (!other.getEvent().isEmpty()) {
-                    event_ = other.event_;
-                    onChanged();
-                }
-                internalGetMutableEventProperties().mergeFrom(
-                        other.internalGetEventProperties());
-                this.mergeUnknownFields(other.unknownFields);
-                onChanged();
-                return this;
-            }
-
-            @java.lang.Override
-            public final boolean isInitialized() {
-
-                return true;
-            }
-
-            @java.lang.Override
-            public Builder mergeFrom(
-                    com.google.protobuf.CodedInputStream input,
-                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                    throws java.io.IOException {
-
-                org.wso2.grpc.event.handler.grpc.Service.Event parsedMessage = null;
-                try {
-                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                    parsedMessage = (org.wso2.grpc.event.handler.grpc.Service.Event) e.getUnfinishedMessage();
-                    throw e.unwrapIOException();
-                } finally {
-                    if (parsedMessage != null) {
-                        mergeFrom(parsedMessage);
-                    }
-                }
-                return this;
-            }
-
-            private int bitField0_;
-
-            private java.lang.Object event_ = "";
-
-            /**
-             * <code>string event = 1;</code>
-             */
-            public java.lang.String getEvent() {
-
-                java.lang.Object ref = event_;
-                if (!(ref instanceof java.lang.String)) {
-                    com.google.protobuf.ByteString bs =
-                            (com.google.protobuf.ByteString) ref;
-                    java.lang.String s = bs.toStringUtf8();
-                    event_ = s;
-                    return s;
-                } else {
-                    return (java.lang.String) ref;
-                }
-            }
-
-            /**
-             * <code>string event = 1;</code>
-             */
-            public com.google.protobuf.ByteString
-            getEventBytes() {
-
-                java.lang.Object ref = event_;
-                if (ref instanceof String) {
-                    com.google.protobuf.ByteString b =
-                            com.google.protobuf.ByteString.copyFromUtf8(
-                                    (java.lang.String) ref);
-                    event_ = b;
-                    return b;
-                } else {
-                    return (com.google.protobuf.ByteString) ref;
-                }
-            }
-
-            /**
-             * <code>string event = 1;</code>
-             */
-            public Builder setEvent(
-                    java.lang.String value) {
-
-                if (value == null) {
-                    throw new NullPointerException();
-                }
-
-                event_ = value;
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <code>string event = 1;</code>
-             */
-            public Builder clearEvent() {
-
-                event_ = getDefaultInstance().getEvent();
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <code>string event = 1;</code>
-             */
-            public Builder setEventBytes(
-                    com.google.protobuf.ByteString value) {
-
-                if (value == null) {
-                    throw new NullPointerException();
-                }
-                checkByteStringIsUtf8(value);
-
-                event_ = value;
-                onChanged();
-                return this;
-            }
-
-            private com.google.protobuf.MapField<
-                    java.lang.String, java.lang.String> eventProperties_;
-
-            private com.google.protobuf.MapField<java.lang.String, java.lang.String>
-            internalGetEventProperties() {
-
-                if (eventProperties_ == null) {
-                    return com.google.protobuf.MapField.emptyMapField(
-                            EventPropertiesDefaultEntryHolder.defaultEntry);
-                }
-                return eventProperties_;
-            }
-
-            private com.google.protobuf.MapField<java.lang.String, java.lang.String>
-            internalGetMutableEventProperties() {
-
-                onChanged();
-                ;
-                if (eventProperties_ == null) {
-                    eventProperties_ = com.google.protobuf.MapField.newMapField(
-                            EventPropertiesDefaultEntryHolder.defaultEntry);
-                }
-                if (!eventProperties_.isMutable()) {
-                    eventProperties_ = eventProperties_.copy();
-                }
-                return eventProperties_;
-            }
-
-            public int getEventPropertiesCount() {
-
-                return internalGetEventProperties().getMap().size();
-            }
-
-            /**
-             * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-             */
-
-            public boolean containsEventProperties(
-                    java.lang.String key) {
-
-                if (key == null) {
-                    throw new java.lang.NullPointerException();
-                }
-                return internalGetEventProperties().getMap().containsKey(key);
-            }
-
-            /**
-             * Use {@link #getEventPropertiesMap()} instead.
-             */
-            @java.lang.Deprecated
-            public java.util.Map<java.lang.String, java.lang.String> getEventProperties() {
-
-                return getEventPropertiesMap();
-            }
-
-            /**
-             * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-             */
-
-            public java.util.Map<java.lang.String, java.lang.String> getEventPropertiesMap() {
-
-                return internalGetEventProperties().getMap();
-            }
-
-            /**
-             * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-             */
-
-            public java.lang.String getEventPropertiesOrDefault(
-                    java.lang.String key,
-                    java.lang.String defaultValue) {
-
-                if (key == null) {
-                    throw new java.lang.NullPointerException();
-                }
-                java.util.Map<java.lang.String, java.lang.String> map =
-                        internalGetEventProperties().getMap();
-                return map.containsKey(key) ? map.get(key) : defaultValue;
-            }
-
-            /**
-             * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-             */
-
-            public java.lang.String getEventPropertiesOrThrow(
-                    java.lang.String key) {
-
-                if (key == null) {
-                    throw new java.lang.NullPointerException();
-                }
-                java.util.Map<java.lang.String, java.lang.String> map =
-                        internalGetEventProperties().getMap();
-                if (!map.containsKey(key)) {
-                    throw new java.lang.IllegalArgumentException();
-                }
-                return map.get(key);
-            }
-
-            public Builder clearEventProperties() {
-
-                internalGetMutableEventProperties().getMutableMap()
-                        .clear();
-                return this;
-            }
-
-            /**
-             * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-             */
-
-            public Builder removeEventProperties(
-                    java.lang.String key) {
-
-                if (key == null) {
-                    throw new java.lang.NullPointerException();
-                }
-                internalGetMutableEventProperties().getMutableMap()
-                        .remove(key);
-                return this;
-            }
-
-            /**
-             * Use alternate mutation accessors instead.
-             */
-            @java.lang.Deprecated
-            public java.util.Map<java.lang.String, java.lang.String>
-            getMutableEventProperties() {
-
-                return internalGetMutableEventProperties().getMutableMap();
-            }
-
-            /**
-             * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-             */
-            public Builder putEventProperties(
-                    java.lang.String key,
-                    java.lang.String value) {
-
-                if (key == null) {
-                    throw new java.lang.NullPointerException();
-                }
-                if (value == null) {
-                    throw new java.lang.NullPointerException();
-                }
-                internalGetMutableEventProperties().getMutableMap()
-                        .put(key, value);
-                return this;
-            }
-
-            /**
-             * <code>map&lt;string, string&gt; eventProperties = 3;</code>
-             */
-
-            public Builder putAllEventProperties(
-                    java.util.Map<java.lang.String, java.lang.String> values) {
-
-                internalGetMutableEventProperties().getMutableMap()
-                        .putAll(values);
-                return this;
-            }
-
-            @java.lang.Override
-            public final Builder setUnknownFields(
-                    final com.google.protobuf.UnknownFieldSet unknownFields) {
-
-                return super.setUnknownFieldsProto3(unknownFields);
-            }
-
-            @java.lang.Override
-            public final Builder mergeUnknownFields(
-                    final com.google.protobuf.UnknownFieldSet unknownFields) {
-
-                return super.mergeUnknownFields(unknownFields);
-            }
-
-            // @@protoc_insertion_point(builder_scope:Event)
-        }
-
-        // @@protoc_insertion_point(class_scope:Event)
-        private static final org.wso2.grpc.event.handler.grpc.Service.Event DEFAULT_INSTANCE;
-
-        static {
-            DEFAULT_INSTANCE = new org.wso2.grpc.event.handler.grpc.Service.Event();
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Event getDefaultInstance() {
-
-            return DEFAULT_INSTANCE;
-        }
-
-        private static final com.google.protobuf.Parser<Event>
-                PARSER = new com.google.protobuf.AbstractParser<Event>() {
-            @java.lang.Override
-            public Event parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
-                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                    throws com.google.protobuf.InvalidProtocolBufferException {
-
-                return new Event(input, extensionRegistry);
-            }
-        };
-
-        public static com.google.protobuf.Parser<Event> parser() {
-
-            return PARSER;
-        }
-
-        @java.lang.Override
-        public com.google.protobuf.Parser<Event> getParserForType() {
-
-            return PARSER;
-        }
-
-        @java.lang.Override
-        public org.wso2.grpc.event.handler.grpc.Service.Event getDefaultInstanceForType() {
-
-            return DEFAULT_INSTANCE;
-        }
-
+        return map.get(key);
+      }
+
+      public Builder clearEventProperties() {
+        internalGetMutableEventProperties().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+       */
+
+      public Builder removeEventProperties(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutableEventProperties().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String>
+      getMutableEventProperties() {
+        return internalGetMutableEventProperties().getMutableMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+       */
+      public Builder putEventProperties(
+          java.lang.String key,
+          java.lang.String value) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        if (value == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutableEventProperties().getMutableMap()
+            .put(key, value);
+        return this;
+      }
+      /**
+       * <code>map&lt;string, string&gt; eventProperties = 3;</code>
+       */
+
+      public Builder putAllEventProperties(
+          java.util.Map<java.lang.String, java.lang.String> values) {
+        internalGetMutableEventProperties().getMutableMap()
+            .putAll(values);
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:Event)
     }
 
-    public interface LogOrBuilder extends
-            // @@protoc_insertion_point(interface_extends:Log)
-            com.google.protobuf.MessageOrBuilder {
+    // @@protoc_insertion_point(class_scope:Event)
+    private static final org.wso2.grpc.event.handler.grpc.Service.Event DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new org.wso2.grpc.event.handler.grpc.Service.Event();
+    }
 
-        /**
-         * <code>string log = 1;</code>
-         */
-        java.lang.String getLog();
+    public static org.wso2.grpc.event.handler.grpc.Service.Event getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
 
-        /**
-         * <code>string log = 1;</code>
-         */
-        com.google.protobuf.ByteString
+    private static final com.google.protobuf.Parser<Event>
+        PARSER = new com.google.protobuf.AbstractParser<Event>() {
+      @java.lang.Override
+      public Event parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Event(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Event> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Event> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.wso2.grpc.event.handler.grpc.Service.Event getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface LogOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:Log)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string log = 1;</code>
+     */
+    java.lang.String getLog();
+    /**
+     * <code>string log = 1;</code>
+     */
+    com.google.protobuf.ByteString
         getLogBytes();
+  }
+  /**
+   * Protobuf type {@code Log}
+   */
+  public  static final class Log extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:Log)
+      LogOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Log.newBuilder() to construct.
+    private Log(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Log() {
+      log_ = "";
     }
 
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Log(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              log_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return org.wso2.grpc.event.handler.grpc.Service.internal_static_Log_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return org.wso2.grpc.event.handler.grpc.Service.internal_static_Log_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.wso2.grpc.event.handler.grpc.Service.Log.class, org.wso2.grpc.event.handler.grpc.Service.Log.Builder.class);
+    }
+
+    public static final int LOG_FIELD_NUMBER = 1;
+    private volatile java.lang.Object log_;
+    /**
+     * <code>string log = 1;</code>
+     */
+    public java.lang.String getLog() {
+      java.lang.Object ref = log_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        log_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string log = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLogBytes() {
+      java.lang.Object ref = log_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        log_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getLogBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, log_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getLogBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, log_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof org.wso2.grpc.event.handler.grpc.Service.Log)) {
+        return super.equals(obj);
+      }
+      org.wso2.grpc.event.handler.grpc.Service.Log other = (org.wso2.grpc.event.handler.grpc.Service.Log) obj;
+
+      boolean result = true;
+      result = result && getLog()
+          .equals(other.getLog());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + LOG_FIELD_NUMBER;
+      hash = (53 * hash) + getLog().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Log parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Log parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(org.wso2.grpc.event.handler.grpc.Service.Log prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code Log}
      */
-    public static final class Log extends
-            com.google.protobuf.GeneratedMessageV3 implements
-            // @@protoc_insertion_point(message_implements:Log)
-            LogOrBuilder {
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:Log)
+        org.wso2.grpc.event.handler.grpc.Service.LogOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.wso2.grpc.event.handler.grpc.Service.internal_static_Log_descriptor;
+      }
 
-        private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.wso2.grpc.event.handler.grpc.Service.internal_static_Log_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.wso2.grpc.event.handler.grpc.Service.Log.class, org.wso2.grpc.event.handler.grpc.Service.Log.Builder.class);
+      }
 
-        // Use Log.newBuilder() to construct.
-        private Log(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // Construct using org.wso2.grpc.event.handler.grpc.Service.Log.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
 
-            super(builder);
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        log_ = "";
 
-        private Log() {
+        return this;
+      }
 
-            log_ = "";
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return org.wso2.grpc.event.handler.grpc.Service.internal_static_Log_descriptor;
+      }
+
+      @java.lang.Override
+      public org.wso2.grpc.event.handler.grpc.Service.Log getDefaultInstanceForType() {
+        return org.wso2.grpc.event.handler.grpc.Service.Log.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public org.wso2.grpc.event.handler.grpc.Service.Log build() {
+        org.wso2.grpc.event.handler.grpc.Service.Log result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
         }
+        return result;
+      }
 
-        @java.lang.Override
-        public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+      @java.lang.Override
+      public org.wso2.grpc.event.handler.grpc.Service.Log buildPartial() {
+        org.wso2.grpc.event.handler.grpc.Service.Log result = new org.wso2.grpc.event.handler.grpc.Service.Log(this);
+        result.log_ = log_;
+        onBuilt();
+        return result;
+      }
 
-            return this.unknownFields;
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof org.wso2.grpc.event.handler.grpc.Service.Log) {
+          return mergeFrom((org.wso2.grpc.event.handler.grpc.Service.Log)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
         }
+      }
 
-        private Log(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-
-            this();
-            if (extensionRegistry == null) {
-                throw new java.lang.NullPointerException();
-            }
-            int mutable_bitField0_ = 0;
-            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-                    com.google.protobuf.UnknownFieldSet.newBuilder();
-            try {
-                boolean done = false;
-                while (!done) {
-                    int tag = input.readTag();
-                    switch (tag) {
-                        case 0:
-                            done = true;
-                            break;
-                        case 10: {
-                            java.lang.String s = input.readStringRequireUtf8();
-
-                            log_ = s;
-                            break;
-                        }
-                        default: {
-                            if (!parseUnknownFieldProto3(
-                                    input, unknownFields, extensionRegistry, tag)) {
-                                done = true;
-                            }
-                            break;
-                        }
-                    }
-                }
-            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                throw e.setUnfinishedMessage(this);
-            } catch (java.io.IOException e) {
-                throw new com.google.protobuf.InvalidProtocolBufferException(
-                        e).setUnfinishedMessage(this);
-            } finally {
-                this.unknownFields = unknownFields.build();
-                makeExtensionsImmutable();
-            }
+      public Builder mergeFrom(org.wso2.grpc.event.handler.grpc.Service.Log other) {
+        if (other == org.wso2.grpc.event.handler.grpc.Service.Log.getDefaultInstance()) return this;
+        if (!other.getLog().isEmpty()) {
+          log_ = other.log_;
+          onChanged();
         }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
 
-        public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
 
-            return org.wso2.grpc.event.handler.grpc.Service.internal_static_Log_descriptor;
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        org.wso2.grpc.event.handler.grpc.Service.Log parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.wso2.grpc.event.handler.grpc.Service.Log) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
         }
+        return this;
+      }
 
-        @java.lang.Override
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-
-            return org.wso2.grpc.event.handler.grpc.Service.internal_static_Log_fieldAccessorTable
-                    .ensureFieldAccessorsInitialized(
-                            org.wso2.grpc.event.handler.grpc.Service.Log.class, org.wso2.grpc.event.handler.grpc.Service.Log.Builder.class);
+      private java.lang.Object log_ = "";
+      /**
+       * <code>string log = 1;</code>
+       */
+      public java.lang.String getLog() {
+        java.lang.Object ref = log_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          log_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
         }
-
-        public static final int LOG_FIELD_NUMBER = 1;
-        private volatile java.lang.Object log_;
-
-        /**
-         * <code>string log = 1;</code>
-         */
-        public java.lang.String getLog() {
-
-            java.lang.Object ref = log_;
-            if (ref instanceof java.lang.String) {
-                return (java.lang.String) ref;
-            } else {
-                com.google.protobuf.ByteString bs =
-                        (com.google.protobuf.ByteString) ref;
-                java.lang.String s = bs.toStringUtf8();
-                log_ = s;
-                return s;
-            }
+      }
+      /**
+       * <code>string log = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getLogBytes() {
+        java.lang.Object ref = log_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          log_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
         }
-
-        /**
-         * <code>string log = 1;</code>
-         */
-        public com.google.protobuf.ByteString
-        getLogBytes() {
-
-            java.lang.Object ref = log_;
-            if (ref instanceof java.lang.String) {
-                com.google.protobuf.ByteString b =
-                        com.google.protobuf.ByteString.copyFromUtf8(
-                                (java.lang.String) ref);
-                log_ = b;
-                return b;
-            } else {
-                return (com.google.protobuf.ByteString) ref;
-            }
-        }
-
-        private byte memoizedIsInitialized = -1;
-
-        @java.lang.Override
-        public final boolean isInitialized() {
-
-            byte isInitialized = memoizedIsInitialized;
-            if (isInitialized == 1) return true;
-            if (isInitialized == 0) return false;
-
-            memoizedIsInitialized = 1;
-            return true;
-        }
-
-        @java.lang.Override
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
-                throws java.io.IOException {
-
-            if (!getLogBytes().isEmpty()) {
-                com.google.protobuf.GeneratedMessageV3.writeString(output, 1, log_);
-            }
-            unknownFields.writeTo(output);
-        }
-
-        @java.lang.Override
-        public int getSerializedSize() {
-
-            int size = memoizedSize;
-            if (size != -1) return size;
-
-            size = 0;
-            if (!getLogBytes().isEmpty()) {
-                size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, log_);
-            }
-            size += unknownFields.getSerializedSize();
-            memoizedSize = size;
-            return size;
-        }
-
-        @java.lang.Override
-        public boolean equals(final java.lang.Object obj) {
-
-            if (obj == this) {
-                return true;
-            }
-            if (!(obj instanceof org.wso2.grpc.event.handler.grpc.Service.Log)) {
-                return super.equals(obj);
-            }
-            org.wso2.grpc.event.handler.grpc.Service.Log other = (org.wso2.grpc.event.handler.grpc.Service.Log) obj;
-
-            boolean result = true;
-            result = result && getLog()
-                    .equals(other.getLog());
-            result = result && unknownFields.equals(other.unknownFields);
-            return result;
-        }
-
-        @java.lang.Override
-        public int hashCode() {
-
-            if (memoizedHashCode != 0) {
-                return memoizedHashCode;
-            }
-            int hash = 41;
-            hash = (19 * hash) + getDescriptor().hashCode();
-            hash = (37 * hash) + LOG_FIELD_NUMBER;
-            hash = (53 * hash) + getLog().hashCode();
-            hash = (29 * hash) + unknownFields.hashCode();
-            memoizedHashCode = hash;
-            return hash;
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
-                java.nio.ByteBuffer data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-
-            return PARSER.parseFrom(data);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
-                java.nio.ByteBuffer data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
-                com.google.protobuf.ByteString data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-
-            return PARSER.parseFrom(data);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
-                com.google.protobuf.ByteString data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(byte[] data)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-
-            return PARSER.parseFrom(data);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
-                byte[] data,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws com.google.protobuf.InvalidProtocolBufferException {
-
-            return PARSER.parseFrom(data, extensionRegistry);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(java.io.InputStream input)
-                throws java.io.IOException {
-
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
-                java.io.InputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Log parseDelimitedFrom(java.io.InputStream input)
-                throws java.io.IOException {
-
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseDelimitedWithIOException(PARSER, input);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Log parseDelimitedFrom(
-                java.io.InputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
-                com.google.protobuf.CodedInputStream input)
-                throws java.io.IOException {
-
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input);
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Log parseFrom(
-                com.google.protobuf.CodedInputStream input,
-                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                throws java.io.IOException {
-
-            return com.google.protobuf.GeneratedMessageV3
-                    .parseWithIOException(PARSER, input, extensionRegistry);
-        }
-
-        @java.lang.Override
-        public Builder newBuilderForType() {
-
-            return newBuilder();
-        }
-
-        public static Builder newBuilder() {
-
-            return DEFAULT_INSTANCE.toBuilder();
-        }
-
-        public static Builder newBuilder(org.wso2.grpc.event.handler.grpc.Service.Log prototype) {
-
-            return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-        }
-
-        @java.lang.Override
-        public Builder toBuilder() {
-
-            return this == DEFAULT_INSTANCE
-                    ? new Builder() : new Builder().mergeFrom(this);
-        }
-
-        @java.lang.Override
-        protected Builder newBuilderForType(
-                com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-
-            Builder builder = new Builder(parent);
-            return builder;
-        }
-
-        /**
-         * Protobuf type {@code Log}
-         */
-        public static final class Builder extends
-                com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-                // @@protoc_insertion_point(builder_implements:Log)
-                org.wso2.grpc.event.handler.grpc.Service.LogOrBuilder {
-
-            public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-
-                return org.wso2.grpc.event.handler.grpc.Service.internal_static_Log_descriptor;
-            }
-
-            @java.lang.Override
-            protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-
-                return org.wso2.grpc.event.handler.grpc.Service.internal_static_Log_fieldAccessorTable
-                        .ensureFieldAccessorsInitialized(
-                                org.wso2.grpc.event.handler.grpc.Service.Log.class, org.wso2.grpc.event.handler.grpc.Service.Log.Builder.class);
-            }
-
-            // Construct using org.wso2.grpc.event.handler.grpc.Service.Log.newBuilder()
-            private Builder() {
-
-                maybeForceBuilderInitialization();
-            }
-
-            private Builder(
-                    com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-
-                super(parent);
-                maybeForceBuilderInitialization();
-            }
-
-            private void maybeForceBuilderInitialization() {
-
-                if (com.google.protobuf.GeneratedMessageV3
-                        .alwaysUseFieldBuilders) {
-                }
-            }
-
-            @java.lang.Override
-            public Builder clear() {
-
-                super.clear();
-                log_ = "";
-
-                return this;
-            }
-
-            @java.lang.Override
-            public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-
-                return org.wso2.grpc.event.handler.grpc.Service.internal_static_Log_descriptor;
-            }
-
-            @java.lang.Override
-            public org.wso2.grpc.event.handler.grpc.Service.Log getDefaultInstanceForType() {
-
-                return org.wso2.grpc.event.handler.grpc.Service.Log.getDefaultInstance();
-            }
-
-            @java.lang.Override
-            public org.wso2.grpc.event.handler.grpc.Service.Log build() {
-
-                org.wso2.grpc.event.handler.grpc.Service.Log result = buildPartial();
-                if (!result.isInitialized()) {
-                    throw newUninitializedMessageException(result);
-                }
-                return result;
-            }
-
-            @java.lang.Override
-            public org.wso2.grpc.event.handler.grpc.Service.Log buildPartial() {
-
-                org.wso2.grpc.event.handler.grpc.Service.Log result = new org.wso2.grpc.event.handler.grpc.Service.Log(this);
-                result.log_ = log_;
-                onBuilt();
-                return result;
-            }
-
-            @java.lang.Override
-            public Builder clone() {
-
-                return (Builder) super.clone();
-            }
-
-            @java.lang.Override
-            public Builder setField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    java.lang.Object value) {
-
-                return (Builder) super.setField(field, value);
-            }
-
-            @java.lang.Override
-            public Builder clearField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field) {
-
-                return (Builder) super.clearField(field);
-            }
-
-            @java.lang.Override
-            public Builder clearOneof(
-                    com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-
-                return (Builder) super.clearOneof(oneof);
-            }
-
-            @java.lang.Override
-            public Builder setRepeatedField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    int index, java.lang.Object value) {
-
-                return (Builder) super.setRepeatedField(field, index, value);
-            }
-
-            @java.lang.Override
-            public Builder addRepeatedField(
-                    com.google.protobuf.Descriptors.FieldDescriptor field,
-                    java.lang.Object value) {
-
-                return (Builder) super.addRepeatedField(field, value);
-            }
-
-            @java.lang.Override
-            public Builder mergeFrom(com.google.protobuf.Message other) {
-
-                if (other instanceof org.wso2.grpc.event.handler.grpc.Service.Log) {
-                    return mergeFrom((org.wso2.grpc.event.handler.grpc.Service.Log) other);
-                } else {
-                    super.mergeFrom(other);
-                    return this;
-                }
-            }
-
-            public Builder mergeFrom(org.wso2.grpc.event.handler.grpc.Service.Log other) {
-
-                if (other == org.wso2.grpc.event.handler.grpc.Service.Log.getDefaultInstance()) return this;
-                if (!other.getLog().isEmpty()) {
-                    log_ = other.log_;
-                    onChanged();
-                }
-                this.mergeUnknownFields(other.unknownFields);
-                onChanged();
-                return this;
-            }
-
-            @java.lang.Override
-            public final boolean isInitialized() {
-
-                return true;
-            }
-
-            @java.lang.Override
-            public Builder mergeFrom(
-                    com.google.protobuf.CodedInputStream input,
-                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                    throws java.io.IOException {
-
-                org.wso2.grpc.event.handler.grpc.Service.Log parsedMessage = null;
-                try {
-                    parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-                } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-                    parsedMessage = (org.wso2.grpc.event.handler.grpc.Service.Log) e.getUnfinishedMessage();
-                    throw e.unwrapIOException();
-                } finally {
-                    if (parsedMessage != null) {
-                        mergeFrom(parsedMessage);
-                    }
-                }
-                return this;
-            }
-
-            private java.lang.Object log_ = "";
-
-            /**
-             * <code>string log = 1;</code>
-             */
-            public java.lang.String getLog() {
-
-                java.lang.Object ref = log_;
-                if (!(ref instanceof java.lang.String)) {
-                    com.google.protobuf.ByteString bs =
-                            (com.google.protobuf.ByteString) ref;
-                    java.lang.String s = bs.toStringUtf8();
-                    log_ = s;
-                    return s;
-                } else {
-                    return (java.lang.String) ref;
-                }
-            }
-
-            /**
-             * <code>string log = 1;</code>
-             */
-            public com.google.protobuf.ByteString
-            getLogBytes() {
-
-                java.lang.Object ref = log_;
-                if (ref instanceof String) {
-                    com.google.protobuf.ByteString b =
-                            com.google.protobuf.ByteString.copyFromUtf8(
-                                    (java.lang.String) ref);
-                    log_ = b;
-                    return b;
-                } else {
-                    return (com.google.protobuf.ByteString) ref;
-                }
-            }
-
-            /**
-             * <code>string log = 1;</code>
-             */
-            public Builder setLog(
-                    java.lang.String value) {
-
-                if (value == null) {
-                    throw new NullPointerException();
-                }
-
-                log_ = value;
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <code>string log = 1;</code>
-             */
-            public Builder clearLog() {
-
-                log_ = getDefaultInstance().getLog();
-                onChanged();
-                return this;
-            }
-
-            /**
-             * <code>string log = 1;</code>
-             */
-            public Builder setLogBytes(
-                    com.google.protobuf.ByteString value) {
-
-                if (value == null) {
-                    throw new NullPointerException();
-                }
-                checkByteStringIsUtf8(value);
-
-                log_ = value;
-                onChanged();
-                return this;
-            }
-
-            @java.lang.Override
-            public final Builder setUnknownFields(
-                    final com.google.protobuf.UnknownFieldSet unknownFields) {
-
-                return super.setUnknownFieldsProto3(unknownFields);
-            }
-
-            @java.lang.Override
-            public final Builder mergeUnknownFields(
-                    final com.google.protobuf.UnknownFieldSet unknownFields) {
-
-                return super.mergeUnknownFields(unknownFields);
-            }
-
-            // @@protoc_insertion_point(builder_scope:Log)
-        }
-
-        // @@protoc_insertion_point(class_scope:Log)
-        private static final org.wso2.grpc.event.handler.grpc.Service.Log DEFAULT_INSTANCE;
-
-        static {
-            DEFAULT_INSTANCE = new org.wso2.grpc.event.handler.grpc.Service.Log();
-        }
-
-        public static org.wso2.grpc.event.handler.grpc.Service.Log getDefaultInstance() {
-
-            return DEFAULT_INSTANCE;
-        }
-
-        private static final com.google.protobuf.Parser<Log>
-                PARSER = new com.google.protobuf.AbstractParser<Log>() {
-            @java.lang.Override
-            public Log parsePartialFrom(
-                    com.google.protobuf.CodedInputStream input,
-                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-                    throws com.google.protobuf.InvalidProtocolBufferException {
-
-                return new Log(input, extensionRegistry);
-            }
-        };
-
-        public static com.google.protobuf.Parser<Log> parser() {
-
-            return PARSER;
-        }
-
-        @java.lang.Override
-        public com.google.protobuf.Parser<Log> getParserForType() {
-
-            return PARSER;
-        }
-
-        @java.lang.Override
-        public org.wso2.grpc.event.handler.grpc.Service.Log getDefaultInstanceForType() {
-
-            return DEFAULT_INSTANCE;
-        }
-
+      }
+      /**
+       * <code>string log = 1;</code>
+       */
+      public Builder setLog(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        log_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string log = 1;</code>
+       */
+      public Builder clearLog() {
+        
+        log_ = getDefaultInstance().getLog();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string log = 1;</code>
+       */
+      public Builder setLogBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        log_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:Log)
     }
 
-    private static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_Event_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_Event_fieldAccessorTable;
-    private static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_Event_EventPropertiesEntry_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_Event_EventPropertiesEntry_fieldAccessorTable;
-    private static final com.google.protobuf.Descriptors.Descriptor
-            internal_static_Log_descriptor;
-    private static final
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internal_static_Log_fieldAccessorTable;
-
-    public static com.google.protobuf.Descriptors.FileDescriptor
-    getDescriptor() {
-
-        return descriptor;
-    }
-
-    private static com.google.protobuf.Descriptors.FileDescriptor
-            descriptor;
-
+    // @@protoc_insertion_point(class_scope:Log)
+    private static final org.wso2.grpc.event.handler.grpc.Service.Log DEFAULT_INSTANCE;
     static {
-        java.lang.String[] descriptorData = {
-                "\n\rservice.proto\"\204\001\n\005Event\022\r\n\005event\030\001 \001(\t" +
-                        "\0224\n\017eventProperties\030\003 \003(\0132\033.Event.EventP" +
-                        "ropertiesEntry\0326\n\024EventPropertiesEntry\022\013" +
-                        "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\022\n\003Log\022\013\n" +
-                        "\003log\030\001 \001(\t2(\n\007service\022\035\n\013handleEvent\022\006.E" +
-                        "vent\032\004.Log\"\000B\"\n org.wso2.grpc.event.hand" +
-                        "ler.grpcb\006proto3"
-        };
-        com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-                new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-                    public com.google.protobuf.ExtensionRegistry assignDescriptors(
-                            com.google.protobuf.Descriptors.FileDescriptor root) {
-
-                        descriptor = root;
-                        return null;
-                    }
-                };
-        com.google.protobuf.Descriptors.FileDescriptor
-                .internalBuildGeneratedFileFrom(descriptorData,
-                        new com.google.protobuf.Descriptors.FileDescriptor[]{
-                        }, assigner);
-        internal_static_Event_descriptor =
-                getDescriptor().getMessageTypes().get(0);
-        internal_static_Event_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_Event_descriptor,
-                new java.lang.String[]{"Event", "EventProperties",});
-        internal_static_Event_EventPropertiesEntry_descriptor =
-                internal_static_Event_descriptor.getNestedTypes().get(0);
-        internal_static_Event_EventPropertiesEntry_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_Event_EventPropertiesEntry_descriptor,
-                new java.lang.String[]{"Key", "Value",});
-        internal_static_Log_descriptor =
-                getDescriptor().getMessageTypes().get(1);
-        internal_static_Log_fieldAccessorTable = new
-                com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-                internal_static_Log_descriptor,
-                new java.lang.String[]{"Log",});
+      DEFAULT_INSTANCE = new org.wso2.grpc.event.handler.grpc.Service.Log();
     }
 
-    // @@protoc_insertion_point(outer_class_scope)
+    public static org.wso2.grpc.event.handler.grpc.Service.Log getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Log>
+        PARSER = new com.google.protobuf.AbstractParser<Log>() {
+      @java.lang.Override
+      public Log parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Log(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Log> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Log> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.wso2.grpc.event.handler.grpc.Service.Log getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Event_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_Event_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Event_EventPropertiesEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_Event_EventPropertiesEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Log_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_Log_fieldAccessorTable;
+
+  public static com.google.protobuf.Descriptors.FileDescriptor
+      getDescriptor() {
+    return descriptor;
+  }
+  private static  com.google.protobuf.Descriptors.FileDescriptor
+      descriptor;
+  static {
+    java.lang.String[] descriptorData = {
+      "\n\rservice.proto\"\204\001\n\005Event\022\r\n\005event\030\001 \001(\t" +
+      "\0224\n\017eventProperties\030\003 \003(\0132\033.Event.EventP" +
+      "ropertiesEntry\0326\n\024EventPropertiesEntry\022\013" +
+      "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\022\n\003Log\022\013\n" +
+      "\003log\030\001 \001(\t2(\n\007service\022\035\n\013handleEvent\022\006.E" +
+      "vent\032\004.Log\"\000B\"\n org.wso2.grpc.event.hand" +
+      "ler.grpcb\006proto3"
+    };
+    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
+    com.google.protobuf.Descriptors.FileDescriptor
+      .internalBuildGeneratedFileFrom(descriptorData,
+        new com.google.protobuf.Descriptors.FileDescriptor[] {
+        }, assigner);
+    internal_static_Event_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_Event_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_Event_descriptor,
+        new java.lang.String[] { "Event", "EventProperties", });
+    internal_static_Event_EventPropertiesEntry_descriptor =
+      internal_static_Event_descriptor.getNestedTypes().get(0);
+    internal_static_Event_EventPropertiesEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_Event_EventPropertiesEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_Log_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_Log_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_Log_descriptor,
+        new java.lang.String[] { "Log", });
+  }
+
+  // @@protoc_insertion_point(outer_class_scope)
 }

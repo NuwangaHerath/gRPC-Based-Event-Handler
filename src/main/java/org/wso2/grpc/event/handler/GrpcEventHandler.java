@@ -28,7 +28,7 @@ import org.wso2.carbon.identity.event.IdentityEventException;
 import org.wso2.carbon.identity.event.event.Event;
 import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
 import org.wso2.grpc.event.handler.grpc.Service;
-import org.wso2.grpc.event.handler.grpc.serviceGrpc;
+import org.wso2.grpc.event.handler.grpc.ServiceGrpc;
 
 import java.io.File;
 import java.util.HashMap;
@@ -47,7 +47,7 @@ public class GrpcEventHandler extends AbstractEventHandler {
     private int priority;
     private String certPath;
     private ManagedChannel channel;
-    private serviceGrpc.serviceBlockingStub clientStub;
+    private ServiceGrpc.serviceBlockingStub clientStub;
 
     @Override
     public String getName() {
@@ -106,9 +106,8 @@ public class GrpcEventHandler extends AbstractEventHandler {
         } catch (SSLException e) {
             log.error("Error occurred while verifying the SSL certificate : ", e);
         }
-//        this.channel = NettyChannelBuilder.forAddress(grpcServerHost, grpcServerPort).build();
 
         // Create the gRPC client stub.
-        this.clientStub = serviceGrpc.newBlockingStub(channel);
+        this.clientStub = ServiceGrpc.newBlockingStub(channel);
     }
 }
