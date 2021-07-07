@@ -24,14 +24,11 @@ import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wso2.carbon.identity.core.bean.context.MessageContext;
-import org.wso2.carbon.identity.event.IdentityEventConfigBuilder;
-import org.wso2.carbon.identity.event.IdentityEventConstants;
 import org.wso2.carbon.identity.event.IdentityEventException;
-import org.wso2.carbon.identity.event.bean.ModuleConfiguration;
 import org.wso2.carbon.identity.event.event.Event;
 import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
 import org.wso2.grpc.event.handler.grpc.Service;
-import org.wso2.grpc.event.handler.grpc.serviceGrpc;
+import org.wso2.grpc.event.handler.grpc.ServiceGrpc;
 
 import java.io.File;
 import java.util.HashMap;
@@ -44,75 +41,30 @@ import javax.net.ssl.SSLException;
 public class GrpcEventHandler extends AbstractEventHandler {
 
     private static Log log = LogFactory.getLog(GrpcEventHandler.class);
-    private ModuleConfiguration grpcEventHandlerConfiguration;
     private String grpcServerHost;
-    private String grpcServerPort;
-    private String caCertPath;
+    private int grpcServerPort;
+    private String handlerName;
+    private int priority;
+    private String certPath;
     private ManagedChannel channel;
-    private serviceGrpc.serviceBlockingStub clientStub;
-    private File clientCACertFile;
-
-    @SuppressWarnings("checkstyle:WhitespaceAfter")
-    public GrpcEventHandler() {
-
-        {
-            try {
-                this.grpcEventHandlerConfiguration = IdentityEventConfigBuilder.getInstance().getModuleConfigurations
-                        ("grpcBasedEventHandler");
-            } catch (IdentityEventException e) {
-                log.info("IdentityEventException: ", e);
-            }
-        }
-
-        // Obtain grpcServerHost and grpcServerPort from identity-event properties.
-        this.grpcServerHost = grpcEventHandlerConfiguration.getModuleProperties()
-                .getProperty("grpcBasedEventHandler.host");
-        this.grpcServerPort = grpcEventHandlerConfiguration.getModuleProperties()
-                .getProperty("grpcBasedEventHandler.port");
-
-        // Obtain certPath from identity-event properties.
-        this.caCertPath = grpcEventHandlerConfiguration.getModuleProperties()
-                .getProperty("grpcBasedEventHandler.certPath");
-
-        // Obtain the CA certificate file.
-        this.clientCACertFile = new File(caCertPath);
-
-        // Create the channel for gRPC server with server authentication SSL/TLS.
-        try {
-            this.channel = NettyChannelBuilder.forAddress(grpcServerHost, Integer.parseInt(grpcServerPort))
-                    .sslContext(GrpcSslContexts.forClient().trustManager(clientCACertFile).build())
-                    .build();
-        } catch (SSLException e) {
-            log.info("SSLException: ", e);
-        }
-
-        // Create the gRPC client stub.
-        this.clientStub = serviceGrpc.newBlockingStub(channel);
-
-    }
+    private ServiceGrpc.serviceBlockingStub clientStub;
 
     @Override
     public String getName() {
 
-        // Obtain handlerName from remote gRPC server.
-        Service.HandlerName handlerName = clientStub.getName(Service.Empty.newBuilder().build());
-        return handlerName.getName();
+        return handlerName;
     }
 
     @Override
     public int getPriority(MessageContext messageContext) {
 
-        // Obtain priority from remote gRPC server.
-        Service.Priority priority = clientStub.getPriority(Service.MessageContext.newBuilder().build());
-        return priority.getPriority();
+        return priority;
     }
 
     @Override
     public void handleEvent(Event event) throws IdentityEventException {
 
         Map<String, Object> eventProperties = event.getEventProperties();
-        String userName = (String) eventProperties.get(IdentityEventConstants.EventProperty.USER_NAME);
-        String tenantDomain = (String) eventProperties.get(IdentityEventConstants.EventProperty.TENANT_DOMAIN);
         String eventName = event.getEventName();
 
         // Define event properties for create gRPC event message.
@@ -128,7 +80,34 @@ public class GrpcEventHandler extends AbstractEventHandler {
 
         // Obtain log message from remote gRPC server.
         Service.Log remoteLog = clientStub.handleEvent(event1);
+        // TODO: 2021-01-15 could be removed 
         log.info(remoteLog.getLog());
+    }
 
+    /**
+     * init method initialize the handler's configurations.
+     */
+    public void init(String handlerName, int priority, String host, int port, String certPath) {
+
+        this.handlerName = handlerName;
+        this.priority = priority;
+        this.grpcServerHost = host;
+        this.grpcServerPort = port;
+        this.certPath = certPath;
+
+        // Obtains the certificate file.
+        File clientCACertFile = new File(certPath);
+
+        // Create the channel for gRPC server with server authentication SSL/TLS.
+        try {
+            this.channel = NettyChannelBuilder.forAddress(grpcServerHost, grpcServerPort)
+                    .sslContext(GrpcSslContexts.forClient().trustManager(clientCACertFile).build())
+                    .build();
+        } catch (SSLException e) {
+            log.error("Error occurred while verifying the SSL certificate : ", e);
+        }
+
+        // Create the gRPC client stub.
+        this.clientStub = ServiceGrpc.newBlockingStub(channel);
     }
 }

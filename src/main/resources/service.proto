@@ -2,23 +2,9 @@ syntax = "proto3";
 option java_package = "org.wso2.grpc.event.handler.grpc";
 
 service service{
-  rpc getName(Empty) returns (HandlerName){};
-  rpc getPriority(MessageContext) returns (Priority){};
   rpc handleEvent(Event) returns (Log){};
 }
 
-message Empty{
-
-}
-message HandlerName{
-  string  name = 1;
-}
-message MessageContext{
-
-}
-message Priority{
-  int32 priority = 1;
-}
 message Event{
   string  event = 1;
   map<string,string> eventProperties = 3;

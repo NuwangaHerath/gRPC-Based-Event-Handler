@@ -1,18 +1,10 @@
 package org.wso2.grpc.event.handler.grpc;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
 import static io.grpc.stub.ClientCalls.asyncUnaryCall;
-import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
 import static io.grpc.stub.ClientCalls.blockingUnaryCall;
 import static io.grpc.stub.ClientCalls.futureUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
 import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
 import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
@@ -20,77 +12,13 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.15.0)",
     comments = "Source: service.proto")
-public final class serviceGrpc {
+public final class ServiceGrpc {
 
-  private serviceGrpc() {}
+  private ServiceGrpc() {}
 
   public static final String SERVICE_NAME = "service";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<org.wso2.grpc.event.handler.grpc.Service.Empty,
-      org.wso2.grpc.event.handler.grpc.Service.HandlerName> getGetNameMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "getName",
-      requestType = org.wso2.grpc.event.handler.grpc.Service.Empty.class,
-      responseType = org.wso2.grpc.event.handler.grpc.Service.HandlerName.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<org.wso2.grpc.event.handler.grpc.Service.Empty,
-      org.wso2.grpc.event.handler.grpc.Service.HandlerName> getGetNameMethod() {
-    io.grpc.MethodDescriptor<org.wso2.grpc.event.handler.grpc.Service.Empty, org.wso2.grpc.event.handler.grpc.Service.HandlerName> getGetNameMethod;
-    if ((getGetNameMethod = serviceGrpc.getGetNameMethod) == null) {
-      synchronized (serviceGrpc.class) {
-        if ((getGetNameMethod = serviceGrpc.getGetNameMethod) == null) {
-          serviceGrpc.getGetNameMethod = getGetNameMethod = 
-              io.grpc.MethodDescriptor.<org.wso2.grpc.event.handler.grpc.Service.Empty, org.wso2.grpc.event.handler.grpc.Service.HandlerName>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(
-                  "service", "getName"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  org.wso2.grpc.event.handler.grpc.Service.Empty.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  org.wso2.grpc.event.handler.grpc.Service.HandlerName.getDefaultInstance()))
-                  .setSchemaDescriptor(new serviceMethodDescriptorSupplier("getName"))
-                  .build();
-          }
-        }
-     }
-     return getGetNameMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<org.wso2.grpc.event.handler.grpc.Service.MessageContext,
-      org.wso2.grpc.event.handler.grpc.Service.Priority> getGetPriorityMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "getPriority",
-      requestType = org.wso2.grpc.event.handler.grpc.Service.MessageContext.class,
-      responseType = org.wso2.grpc.event.handler.grpc.Service.Priority.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<org.wso2.grpc.event.handler.grpc.Service.MessageContext,
-      org.wso2.grpc.event.handler.grpc.Service.Priority> getGetPriorityMethod() {
-    io.grpc.MethodDescriptor<org.wso2.grpc.event.handler.grpc.Service.MessageContext, org.wso2.grpc.event.handler.grpc.Service.Priority> getGetPriorityMethod;
-    if ((getGetPriorityMethod = serviceGrpc.getGetPriorityMethod) == null) {
-      synchronized (serviceGrpc.class) {
-        if ((getGetPriorityMethod = serviceGrpc.getGetPriorityMethod) == null) {
-          serviceGrpc.getGetPriorityMethod = getGetPriorityMethod = 
-              io.grpc.MethodDescriptor.<org.wso2.grpc.event.handler.grpc.Service.MessageContext, org.wso2.grpc.event.handler.grpc.Service.Priority>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(
-                  "service", "getPriority"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  org.wso2.grpc.event.handler.grpc.Service.MessageContext.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  org.wso2.grpc.event.handler.grpc.Service.Priority.getDefaultInstance()))
-                  .setSchemaDescriptor(new serviceMethodDescriptorSupplier("getPriority"))
-                  .build();
-          }
-        }
-     }
-     return getGetPriorityMethod;
-  }
-
   private static volatile io.grpc.MethodDescriptor<org.wso2.grpc.event.handler.grpc.Service.Event,
       org.wso2.grpc.event.handler.grpc.Service.Log> getHandleEventMethod;
 
@@ -102,10 +30,10 @@ public final class serviceGrpc {
   public static io.grpc.MethodDescriptor<org.wso2.grpc.event.handler.grpc.Service.Event,
       org.wso2.grpc.event.handler.grpc.Service.Log> getHandleEventMethod() {
     io.grpc.MethodDescriptor<org.wso2.grpc.event.handler.grpc.Service.Event, org.wso2.grpc.event.handler.grpc.Service.Log> getHandleEventMethod;
-    if ((getHandleEventMethod = serviceGrpc.getHandleEventMethod) == null) {
-      synchronized (serviceGrpc.class) {
-        if ((getHandleEventMethod = serviceGrpc.getHandleEventMethod) == null) {
-          serviceGrpc.getHandleEventMethod = getHandleEventMethod = 
+    if ((getHandleEventMethod = ServiceGrpc.getHandleEventMethod) == null) {
+      synchronized (ServiceGrpc.class) {
+        if ((getHandleEventMethod = ServiceGrpc.getHandleEventMethod) == null) {
+          ServiceGrpc.getHandleEventMethod = getHandleEventMethod =
               io.grpc.MethodDescriptor.<org.wso2.grpc.event.handler.grpc.Service.Event, org.wso2.grpc.event.handler.grpc.Service.Log>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
@@ -152,20 +80,6 @@ public final class serviceGrpc {
 
     /**
      */
-    public void getName(org.wso2.grpc.event.handler.grpc.Service.Empty request,
-        io.grpc.stub.StreamObserver<org.wso2.grpc.event.handler.grpc.Service.HandlerName> responseObserver) {
-      asyncUnimplementedUnaryCall(getGetNameMethod(), responseObserver);
-    }
-
-    /**
-     */
-    public void getPriority(org.wso2.grpc.event.handler.grpc.Service.MessageContext request,
-        io.grpc.stub.StreamObserver<org.wso2.grpc.event.handler.grpc.Service.Priority> responseObserver) {
-      asyncUnimplementedUnaryCall(getGetPriorityMethod(), responseObserver);
-    }
-
-    /**
-     */
     public void handleEvent(org.wso2.grpc.event.handler.grpc.Service.Event request,
         io.grpc.stub.StreamObserver<org.wso2.grpc.event.handler.grpc.Service.Log> responseObserver) {
       asyncUnimplementedUnaryCall(getHandleEventMethod(), responseObserver);
@@ -173,20 +87,6 @@ public final class serviceGrpc {
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
-          .addMethod(
-            getGetNameMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                org.wso2.grpc.event.handler.grpc.Service.Empty,
-                org.wso2.grpc.event.handler.grpc.Service.HandlerName>(
-                  this, METHODID_GET_NAME)))
-          .addMethod(
-            getGetPriorityMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                org.wso2.grpc.event.handler.grpc.Service.MessageContext,
-                org.wso2.grpc.event.handler.grpc.Service.Priority>(
-                  this, METHODID_GET_PRIORITY)))
           .addMethod(
             getHandleEventMethod(),
             asyncUnaryCall(
@@ -218,22 +118,6 @@ public final class serviceGrpc {
 
     /**
      */
-    public void getName(org.wso2.grpc.event.handler.grpc.Service.Empty request,
-        io.grpc.stub.StreamObserver<org.wso2.grpc.event.handler.grpc.Service.HandlerName> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getGetNameMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     */
-    public void getPriority(org.wso2.grpc.event.handler.grpc.Service.MessageContext request,
-        io.grpc.stub.StreamObserver<org.wso2.grpc.event.handler.grpc.Service.Priority> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getGetPriorityMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     */
     public void handleEvent(org.wso2.grpc.event.handler.grpc.Service.Event request,
         io.grpc.stub.StreamObserver<org.wso2.grpc.event.handler.grpc.Service.Log> responseObserver) {
       asyncUnaryCall(
@@ -257,20 +141,6 @@ public final class serviceGrpc {
     protected serviceBlockingStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new serviceBlockingStub(channel, callOptions);
-    }
-
-    /**
-     */
-    public org.wso2.grpc.event.handler.grpc.Service.HandlerName getName(org.wso2.grpc.event.handler.grpc.Service.Empty request) {
-      return blockingUnaryCall(
-          getChannel(), getGetNameMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public org.wso2.grpc.event.handler.grpc.Service.Priority getPriority(org.wso2.grpc.event.handler.grpc.Service.MessageContext request) {
-      return blockingUnaryCall(
-          getChannel(), getGetPriorityMethod(), getCallOptions(), request);
     }
 
     /**
@@ -301,22 +171,6 @@ public final class serviceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<org.wso2.grpc.event.handler.grpc.Service.HandlerName> getName(
-        org.wso2.grpc.event.handler.grpc.Service.Empty request) {
-      return futureUnaryCall(
-          getChannel().newCall(getGetNameMethod(), getCallOptions()), request);
-    }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<org.wso2.grpc.event.handler.grpc.Service.Priority> getPriority(
-        org.wso2.grpc.event.handler.grpc.Service.MessageContext request) {
-      return futureUnaryCall(
-          getChannel().newCall(getGetPriorityMethod(), getCallOptions()), request);
-    }
-
-    /**
-     */
     public com.google.common.util.concurrent.ListenableFuture<org.wso2.grpc.event.handler.grpc.Service.Log> handleEvent(
         org.wso2.grpc.event.handler.grpc.Service.Event request) {
       return futureUnaryCall(
@@ -324,9 +178,7 @@ public final class serviceGrpc {
     }
   }
 
-  private static final int METHODID_GET_NAME = 0;
-  private static final int METHODID_GET_PRIORITY = 1;
-  private static final int METHODID_HANDLE_EVENT = 2;
+  private static final int METHODID_HANDLE_EVENT = 0;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -345,14 +197,6 @@ public final class serviceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_GET_NAME:
-          serviceImpl.getName((org.wso2.grpc.event.handler.grpc.Service.Empty) request,
-              (io.grpc.stub.StreamObserver<org.wso2.grpc.event.handler.grpc.Service.HandlerName>) responseObserver);
-          break;
-        case METHODID_GET_PRIORITY:
-          serviceImpl.getPriority((org.wso2.grpc.event.handler.grpc.Service.MessageContext) request,
-              (io.grpc.stub.StreamObserver<org.wso2.grpc.event.handler.grpc.Service.Priority>) responseObserver);
-          break;
         case METHODID_HANDLE_EVENT:
           serviceImpl.handleEvent((org.wso2.grpc.event.handler.grpc.Service.Event) request,
               (io.grpc.stub.StreamObserver<org.wso2.grpc.event.handler.grpc.Service.Log>) responseObserver);
@@ -413,13 +257,11 @@ public final class serviceGrpc {
   public static io.grpc.ServiceDescriptor getServiceDescriptor() {
     io.grpc.ServiceDescriptor result = serviceDescriptor;
     if (result == null) {
-      synchronized (serviceGrpc.class) {
+      synchronized (ServiceGrpc.class) {
         result = serviceDescriptor;
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new serviceFileDescriptorSupplier())
-              .addMethod(getGetNameMethod())
-              .addMethod(getGetPriorityMethod())
               .addMethod(getHandleEventMethod())
               .build();
         }
